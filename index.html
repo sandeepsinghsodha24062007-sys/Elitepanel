@@ -1,88 +1,180 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>FASTXERA PRO | SMM PANEL</title>
+    <title>FASTXERA PRO | ELITE SMM</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root { --bg: #0b0e14; --card: #151921; --accent: #5468ff; --gold: #ff9f43; }
+        :root { --bg: #0b0e14; --card: #151921; --accent: #5468ff; --gold: #ff9f43; --text: #ffffff; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background: var(--bg); color: white; -webkit-tap-highlight-color: transparent; }
+        body { background: var(--bg); color: var(--text); -webkit-tap-highlight-color: transparent; overflow-x: hidden; }
 
+        /* HEADER */
         header { padding: 15px 20px; background: var(--card); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #232a35; position: sticky; top: 0; z-index: 1000; }
-        .logo { font-size: 20px; font-weight: 800; color: var(--gold); letter-spacing: 1px; }
+        .logo { font-size: 22px; font-weight: 800; color: var(--gold); letter-spacing: 1px; }
+        .status { color: #2ecc71; font-size: 11px; font-weight: 600; display: flex; align-items: center; gap: 5px; }
 
-        .live-stats { background: rgba(255, 159, 67, 0.1); margin: 15px; padding: 15px; border-radius: 12px; display: flex; justify-content: space-around; border: 1px solid rgba(255, 159, 67, 0.2); }
+        /* STATS BOX */
+        .stats { background: linear-gradient(135deg, rgba(84,104,255,0.1), rgba(255,159,67,0.1)); margin: 15px; padding: 20px; border-radius: 15px; display: flex; justify-content: space-around; border: 1px solid #232a35; }
         .stat-box { text-align: center; }
-        .stat-box b { display: block; color: var(--gold); font-size: 18px; }
-        .stat-box span { font-size: 10px; color: #7b849a; }
+        .stat-box h2 { color: var(--gold); font-size: 20px; }
+        .stat-box p { font-size: 10px; color: #7b849a; text-transform: uppercase; }
 
-        .tabs { display: flex; overflow-x: auto; padding: 0 15px 15px; gap: 10px; scrollbar-width: none; }
-        .tab-item { padding: 10px 22px; background: #1c222d; border-radius: 50px; font-size: 14px; font-weight: 600; color: #7b849a; border: 1px solid #232a35; white-space: nowrap; }
-        .tab-item.active { background: var(--accent); color: white; box-shadow: 0 4px 15px rgba(84, 104, 255, 0.4); }
+        /* CATEGORY TABS */
+        .tabs-container { display: flex; overflow-x: auto; padding: 0 15px 15px; gap: 10px; scrollbar-width: none; }
+        .tab { padding: 12px 25px; background: #1c222d; border-radius: 50px; font-size: 14px; font-weight: 600; color: #7b849a; border: 1px solid #232a35; white-space: nowrap; cursor: pointer; transition: 0.3s; }
+        .tab.active { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 5px 15px rgba(84,104,255,0.4); }
 
-        .content { padding: 0 15px 100px; }
-        .card { background: var(--card); border-radius: 15px; padding: 20px; margin-bottom: 15px; border: 1px solid #232a35; display: flex; justify-content: space-between; align-items: center; position: relative; overflow: hidden; }
-        .card::before { content: ''; position: absolute; left: 0; top: 0; width: 4px; height: 100%; background: var(--gold); }
-        .card h3 { font-size: 15px; font-weight: 600; margin-bottom: 5px; }
-        .price { font-size: 26px; font-weight: 800; color: #2ecc71; }
-        .buy-btn { background: var(--accent); color: white; border: none; padding: 12px 25px; border-radius: 10px; font-weight: 700; font-size: 14px; }
+        /* SERVICE CARDS */
+        .service-list { padding: 0 15px 120px; display: none; }
+        .service-list.active { display: block; animation: fadeIn 0.4s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        #order-popup { position: fixed; bottom: 20px; left: 20px; background: #000; border: 1px solid var(--gold); padding: 10px 15px; border-radius: 10px; display: none; z-index: 9999; animation: slideIn 0.5s; font-size: 12px; }
-        @keyframes slideIn { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .card { background: var(--card); border-radius: 18px; padding: 20px; margin-bottom: 15px; border: 1px solid #232a35; display: flex; justify-content: space-between; align-items: center; position: relative; }
+        .card h3 { font-size: 15px; margin-bottom: 5px; width: 60%; }
+        .price { font-size: 24px; font-weight: 800; color: #2ecc71; }
+        .buy-btn { background: var(--accent); color: white; border: none; padding: 12px 25px; border-radius: 12px; font-weight: 700; cursor: pointer; }
 
-        .wa-support { position: fixed; bottom: 85px; right: 20px; background: #25d366; width: 55px; height: 55px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 28px; box-shadow: 0 5px 20px rgba(0,0,0,0.5); z-index: 1000; color: white; text-decoration: none; }
+        /* POPUP NOTIFICATION */
+        #popup { position: fixed; bottom: 25px; left: 20px; background: #000; border: 1px solid var(--gold); padding: 12px 18px; border-radius: 12px; display: none; z-index: 9999; animation: slideUp 0.6s ease-out; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        @keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-        #pay-ui { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 10000; flex-direction: column; }
-        .pay-header { padding: 20px; border-bottom: 1px solid #232a35; display: flex; align-items: center; font-weight: 700; }
-        .pay-body { padding: 30px; text-align: center; }
-        .qr-wrap { background: white; padding: 15px; border-radius: 20px; display: inline-block; margin: 20px 0; border: 4px solid var(--accent); }
-        .link-input { width: 100%; background: var(--card); border: 1px solid #232a35; padding: 18px; border-radius: 12px; color: white; margin-bottom: 20px; outline: none; }
+        /* WHATSAPP */
+        .wa { position: fixed; bottom: 90px; right: 20px; background: #25d366; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 30px; color: white; z-index: 1000; box-shadow: 0 5px 20px rgba(0,0,0,0.4); text-decoration: none; }
+
+        /* PAYMENT OVERLAY */
+        #pay-screen { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 10000; flex-direction: column; overflow-y: auto; }
+        .pay-nav { padding: 20px; border-bottom: 1px solid #232a35; display: flex; align-items: center; gap: 15px; font-weight: 700; cursor: pointer; }
+        .pay-content { padding: 30px; text-align: center; }
+        .qr-box { background: white; padding: 15px; border-radius: 20px; display: inline-block; margin: 20px 0; border: 5px solid var(--accent); }
+        .input-group { text-align: left; margin-bottom: 25px; }
+        .input-group label { font-size: 12px; color: #7b849a; margin-left: 5px; }
+        .input-box { width: 100%; background: #1c222d; border: 1px solid #232a35; padding: 18px; border-radius: 15px; color: white; margin-top: 8px; outline: none; font-size: 16px; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo">FASTXERA PRO</div>
-    <div style="color: #2ecc71; font-size: 12px;"><i class="fas fa-circle"></i> SYSTEM LIVE</div>
+    <div class="logo">FASTXERA</div>
+    <div class="status"><i class="fas fa-bolt"></i> SYSTEM ACTIVE</div>
 </header>
 
-<div class="live-stats">
-    <div class="stat-box"><b>48k+</b><span>Total Users</span></div>
-    <div class="stat-box"><b>1,240</b><span>Orders Today</span></div>
-    <div class="stat-box"><b>0.5s</b><span>Speed</span></div>
+<div class="stats">
+    <div class="stat-box"><h2>48k+</h2><p>Users</p></div>
+    <div class="stat-box"><h2>1.2k</h2><p>Orders</p></div>
+    <div class="stat-box"><h2>0.1s</h2><p>Server</p></div>
 </div>
 
-<div class="tabs">
-    <div class="tab-item active">Instagram</div>
-    <div class="tab-item">YouTube</div>
-    <div class="tab-item">Telegram</div>
+<div class="tabs-container">
+    <div class="tab active" onclick="showSection('insta')">Instagram</div>
+    <div class="tab" onclick="showSection('yt')">YouTube</div>
+    <div class="tab" onclick="showSection('tg')">Telegram</div>
+    <div class="tab" onclick="showSection('fb')">Facebook</div>
 </div>
 
-<div class="content">
-    <div class="card" onclick="openPay('10k Followers', 159)">
-        <div><h3>10,000 Instagram Followers</h3><div class="price">₹159</div></div>
-        <button class="buy-btn">Buy Now</button>
+<div id="insta" class="service-list active">
+    <div class="card">
+        <div><h3>10k Instagram Followers</h3><div class="price">₹159</div></div>
+        <button class="buy-btn" onclick="openPay('10k Insta Followers', 159)">Buy</button>
     </div>
-    <div class="card" onclick="openPay('5k Likes', 79)">
-        <div><h3>5,000 High Quality Likes</h3><div class="price">₹79</div></div>
-        <button class="buy-btn">Buy Now</button>
-    </div>
-    <div class="card" onclick="openPay('1k YouTube Subs', 299)">
-        <div><h3>1,000 YouTube Subscribers</h3><div class="price">₹299</div></div>
-        <button class="buy-btn">Buy Now</button>
+    <div class="card">
+        <div><h3>5k Instagram Likes</h3><div class="price">₹79</div></div>
+        <button class="buy-btn" onclick="openPay('5k Insta Likes', 79)">Buy</button>
     </div>
 </div>
 
-<a href="https://wa.me/91XXXXXXXXXX" class="wa-support"><i class="fab fa-whatsapp"></i></a>
-<div id="order-popup">🔥 Someone just bought followers!</div>
+<div id="yt" class="service-list">
+    <div class="card">
+        <div><h3>1k YouTube Subs</h3><div class="price">₹299</div></div>
+        <button class="buy-btn" onclick="openPay('1k YouTube Subs', 299)">Buy</button>
+    </div>
+    <div class="card">
+        <div><h3>4k Watch Hours</h3><div class="price">₹999</div></div>
+        <button class="buy-btn" onclick="openPay('4k Watch Hours', 999)">Buy</button>
+    </div>
+</div>
 
-<div id="pay-ui">
-    <div class="pay-header" onclick="location.reload()"><i class="fas fa-arrow-left"></i> &nbsp; Back to Menu</div>
-    <div class="pay-body">
-        <h1 id="p-amt" style="font-size: 45px; color: #2ecc71;">₹0</h1>
-        <p style="color: #7b849a; margin-bottom: 20px;">Safe & Secure Payment</p>
-        <input type="text" id="target-link" class="link-input" placeholder="Paste Link/Username Here">
-        <div class="qr-wrap"><img id="qr-img" src="" style="width: 200px; height: 200px;"></div>
-        <button class="buy-btn" style="width: 100%; padding: 20px; font-size: 18px;" onclick="processPay()">PAY
+<div id="tg" class="service-list">
+    <div class="card">
+        <div><h3>1k Telegram Members</h3><div class="price">₹120</div></div>
+        <button class="buy-btn" onclick="openPay('1k TG Members', 120)">Buy</button>
+    </div>
+</div>
+
+<div id="fb" class="service-list">
+    <div class="card">
+        <div><h3>1k FB Page Likes</h3><div class="price">₹180</div></div>
+        <button class="buy-btn" onclick="openPay('1k FB Likes', 180)">Buy</button>
+    </div>
+</div>
+
+<a href="https://wa.me/91XXXXXXXXXX" class="wa"><i class="fab fa-whatsapp"></i></a>
+<div id="popup">🔥 Someone just bought followers!</div>
+
+<div id="pay-screen">
+    <div class="pay-nav" onclick="closePay()"><i class="fas fa-arrow-left"></i> Back to Menu</div>
+    <div class="pay-content">
+        <h1 id="p-amt" style="font-size: 50px; color: #2ecc71;">₹0</h1>
+        <p style="color: #7b849a;">Payment for: <span id="p-srv" style="color:white"></span></p>
+        
+        <div class="input-group" style="margin-top:20px">
+            <label>Target URL / Username</label>
+            <input type="text" id="target" class="input-box" placeholder="Paste Link Here...">
+        </div>
+
+        <div class="qr-box">
+            <img id="qr" src="" style="width: 220px; height: 220px;">
+        </div>
+        
+        <p style="font-size: 12px; color: #7b849a; margin-bottom: 20px;">Scan QR or click below to pay</p>
+        <button class="buy-btn" style="width: 100%; padding: 20px; font-size: 18px;" onclick="payNow()">Pay via UPI App</button>
+    </div>
+</div>
+
+<script>
+    const UPI_ID = "sbehhejebns@axl";
+    let currentAmt = 0;
+
+    function showSection(id) {
+        document.querySelectorAll('.service-list').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        event.currentTarget.classList.add('active');
+    }
+
+    function openPay(srv, price) {
+        currentAmt = price;
+        document.getElementById('p-amt').innerText = "₹" + price;
+        document.getElementById('p-srv').innerText = srv;
+        document.getElementById('qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=upi://pay?pa=${UPI_ID}&pn=FASTX&am=${price}&cu=INR`;
+        document.getElementById('pay-screen').style.display = 'flex';
+    }
+
+    function closePay() { document.getElementById('pay-screen').style.display = 'none'; }
+
+    function payNow() {
+        let link = document.getElementById('target').value;
+        if(!link) { alert("Please enter your Link/Username first!"); return; }
+        window.location.href = `upi://pay?pa=${UPI_ID}&pn=FASTX&am=${currentAmt}&cu=INR`;
+    }
+
+    // Live Popup System
+    const users = ["Rahul", "Ankit", "Priya", "Sonia", "Vikram", "Deepak"];
+    const items = ["10k Insta Followers", "5k Likes", "1k YouTube Subs", "500 Telegram Members"];
+    
+    function startPopup() {
+        setInterval(() => {
+            const user = users[Math.floor(Math.random()*users.length)];
+            const item = items[Math.floor(Math.random()*items.length)];
+            const p = document.getElementById('popup');
+            p.innerText = `🔥 ${user} just bought ${item}!`;
+            p.style.display = 'block';
+            setTimeout(() => { p.style.display = 'none'; }, 4000);
+        }, 8000);
+    }
+    startPopup();
+</script>
+
+</body>
+</html>
