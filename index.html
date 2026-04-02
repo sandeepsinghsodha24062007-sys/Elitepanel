@@ -3,119 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SS SMM SERVICE</title>
+    <title>FASTXERA PRO | SMM PANEL</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; padding: 0; }
-        .header-banner { background: linear-gradient(135deg, #4481eb 0%, #04befe 100%); color: white; text-align: center; padding: 40px 20px; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; }
-        .header-banner h1 { margin: 0; font-size: 24px; text-transform: uppercase; }
-        .header-banner p { opacity: 0.9; margin-top: 10px; }
-        
-        .container { padding: 20px; max-width: 500px; margin: -30px auto 0 auto; }
-        .service-card { background: white; border-radius: 15px; padding: 20px; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; border-left: 5px solid #007bff; }
-        .service-info h3 { margin: 0; font-size: 16px; color: #333; }
-        .price { color: #28a745; font-size: 22px; font-weight: bold; margin-top: 5px; }
-        
-        .buy-btn { background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        :root { --bg: #0b0e14; --card: #151921; --accent: #5468ff; --gold: #ff9f43; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: var(--bg); color: white; -webkit-tap-highlight-color: transparent; }
 
-        /* Payment Modal */
-        #pay-modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:white; z-index:1000; flex-direction: column; overflow-y: auto; }
-        .modal-head { padding: 20px; border-bottom: 1px solid #ddd; display: flex; align-items: center; background: #f8f9fa; }
-        .modal-body { padding: 20px; text-align: center; }
-        .input-field { width: 90%; padding: 15px; margin: 15px 0; border: 1px solid #ccc; border-radius: 10px; font-size: 16px; }
-        .qr-box { background: #f9f9f9; padding: 15px; border-radius: 15px; display: inline-block; margin-bottom: 20px; border: 2px dashed #007bff; }
-        .instruction { background: #fff3cd; color: #856404; padding: 10px; border-radius: 8px; font-size: 13px; margin-bottom: 15px; text-align: left; }
+        header { padding: 15px 20px; background: var(--card); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #232a35; position: sticky; top: 0; z-index: 1000; }
+        .logo { font-size: 20px; font-weight: 800; color: var(--gold); letter-spacing: 1px; }
+
+        .live-stats { background: rgba(255, 159, 67, 0.1); margin: 15px; padding: 15px; border-radius: 12px; display: flex; justify-content: space-around; border: 1px solid rgba(255, 159, 67, 0.2); }
+        .stat-box { text-align: center; }
+        .stat-box b { display: block; color: var(--gold); font-size: 18px; }
+        .stat-box span { font-size: 10px; color: #7b849a; }
+
+        .tabs { display: flex; overflow-x: auto; padding: 0 15px 15px; gap: 10px; scrollbar-width: none; }
+        .tab-item { padding: 10px 22px; background: #1c222d; border-radius: 50px; font-size: 14px; font-weight: 600; color: #7b849a; border: 1px solid #232a35; white-space: nowrap; }
+        .tab-item.active { background: var(--accent); color: white; box-shadow: 0 4px 15px rgba(84, 104, 255, 0.4); }
+
+        .content { padding: 0 15px 100px; }
+        .card { background: var(--card); border-radius: 15px; padding: 20px; margin-bottom: 15px; border: 1px solid #232a35; display: flex; justify-content: space-between; align-items: center; position: relative; overflow: hidden; }
+        .card::before { content: ''; position: absolute; left: 0; top: 0; width: 4px; height: 100%; background: var(--gold); }
+        .card h3 { font-size: 15px; font-weight: 600; margin-bottom: 5px; }
+        .price { font-size: 26px; font-weight: 800; color: #2ecc71; }
+        .buy-btn { background: var(--accent); color: white; border: none; padding: 12px 25px; border-radius: 10px; font-weight: 700; font-size: 14px; }
+
+        #order-popup { position: fixed; bottom: 20px; left: 20px; background: #000; border: 1px solid var(--gold); padding: 10px 15px; border-radius: 10px; display: none; z-index: 9999; animation: slideIn 0.5s; font-size: 12px; }
+        @keyframes slideIn { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        .wa-support { position: fixed; bottom: 85px; right: 20px; background: #25d366; width: 55px; height: 55px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 28px; box-shadow: 0 5px 20px rgba(0,0,0,0.5); z-index: 1000; color: white; text-decoration: none; }
+
+        #pay-ui { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 10000; flex-direction: column; }
+        .pay-header { padding: 20px; border-bottom: 1px solid #232a35; display: flex; align-items: center; font-weight: 700; }
+        .pay-body { padding: 30px; text-align: center; }
+        .qr-wrap { background: white; padding: 15px; border-radius: 20px; display: inline-block; margin: 20px 0; border: 4px solid var(--accent); }
+        .link-input { width: 100%; background: var(--card); border: 1px solid #232a35; padding: 18px; border-radius: 12px; color: white; margin-bottom: 20px; outline: none; }
     </style>
 </head>
 <body>
 
-<div class="header-banner">
-    <h1>SS SMM SERVICE</h1>
-    <p>Premium Social Growth<br>Cheap, Fast & Trusted Services</p>
+<header>
+    <div class="logo">FASTXERA PRO</div>
+    <div style="color: #2ecc71; font-size: 12px;"><i class="fas fa-circle"></i> SYSTEM LIVE</div>
+</header>
+
+<div class="live-stats">
+    <div class="stat-box"><b>48k+</b><span>Total Users</span></div>
+    <div class="stat-box"><b>1,240</b><span>Orders Today</span></div>
+    <div class="stat-box"><b>0.5s</b><span>Speed</span></div>
 </div>
 
-<div class="container">
-    <div class="service-card" onclick="openPayment('100 Followers (Demo)', 20)">
-        <div class="service-info">
-            <h3>100 Followers (Demo)</h3>
-            <div class="price">₹20</div>
-        </div>
-        <button class="buy-btn">Buy Now</button>
-    </div>
-
-    <div class="service-card" onclick="openPayment('10,000 Followers', 159)">
-        <div class="service-info">
-            <h3>10,000 Followers</h3>
-            <div class="price">₹159</div>
-        </div>
-        <button class="buy-btn">Buy Now</button>
-    </div>
-
-    <div class="service-card" onclick="openPayment('10,000 Likes', 80)">
-        <div class="service-info">
-            <h3>10,000 Likes</h3>
-            <div class="price">₹80</div>
-        </div>
-        <button class="buy-btn">Buy Now</button>
-    </div>
+<div class="tabs">
+    <div class="tab-item active">Instagram</div>
+    <div class="tab-item">YouTube</div>
+    <div class="tab-item">Telegram</div>
 </div>
 
-<div id="pay-modal">
-    <div class="modal-head">
-        <span onclick="closePay()" style="font-size: 30px; cursor:pointer;">&larr;</span>
-        <h3 id="srv-name" style="margin-left: 20px;">Payment</h3>
+<div class="content">
+    <div class="card" onclick="openPay('10k Followers', 159)">
+        <div><h3>10,000 Instagram Followers</h3><div class="price">₹159</div></div>
+        <button class="buy-btn">Buy Now</button>
     </div>
-    <div class="modal-body">
-        <h1 id="srv-price" style="font-size: 45px; color: #28a745; margin: 10px 0;">₹0</h1>
-        
-        <div class="instruction">
-            1. Instagram profile link copy karke yahan paste karein.<br>
-            2. Account Public hona chahiye (Private nahi).
-        </div>
-
-        <input type="text" id="link" class="input-field" placeholder="Paste Profile Link / Username">
-        
-        <div class="qr-box">
-            <img id="qr-code" src="" style="width: 200px; height: 200px;">
-            <p style="margin-top: 10px; font-weight: bold; color: #007bff;">Scan QR to Pay</p>
-        </div>
-
-        <button class="buy-btn" style="width: 100%; padding: 18px; font-size: 18px;" onclick="payNow()">DIRECT PAY NOW</button>
-        <p style="color: red; font-size: 12px; margin-top: 10px;">Pay karne ke baad 5-10 second wait karein.</p>
+    <div class="card" onclick="openPay('5k Likes', 79)">
+        <div><h3>5,000 High Quality Likes</h3><div class="price">₹79</div></div>
+        <button class="buy-btn">Buy Now</button>
+    </div>
+    <div class="card" onclick="openPay('1k YouTube Subs', 299)">
+        <div><h3>1,000 YouTube Subscribers</h3><div class="price">₹299</div></div>
+        <button class="buy-btn">Buy Now</button>
     </div>
 </div>
 
-<script>
-    let currentAmt = 0;
-    // YAHAN APNI UPI ID DAALEIN
-    const MY_UPI = "sandeepsinghsodha@okicici"; 
+<a href="https://wa.me/91XXXXXXXXXX" class="wa-support"><i class="fab fa-whatsapp"></i></a>
+<div id="order-popup">🔥 Someone just bought followers!</div>
 
-    function openPayment(name, price) {
-        currentAmt = price;
-        document.getElementById('srv-name').innerText = name;
-        document.getElementById('srv-price').innerText = "₹" + price;
-        
-        // QR Code generate ho raha hai
-        let qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa=${MY_UPI}&pn=SS-SMM&am=${price}&cu=INR`;
-        document.getElementById('qr-code').src = qrUrl;
-        
-        document.getElementById('pay-modal').style.display = 'flex';
-    }
-
-    function closePay() {
-        document.getElementById('pay-modal').style.display = 'none';
-    }
-
-    function payNow() {
-        let linkVal = document.getElementById('link').value;
-        if(linkVal.trim() === "") {
-            alert("Bhai pehle link toh daal do!");
-            return;
-        }
-        // Mobile par direct PhonePe/Paytm kholne ke liye
-        window.location.href = `upi://pay?pa=${MY_UPI}&pn=SS-SMM&am=${currentAmt}&cu=INR`;
-    }
-</script>
-
-</body>
-</html>
+<div id="pay-ui">
+    <div class="pay-header" onclick="location.reload()"><i class="fas fa-arrow-left"></i> &nbsp; Back to Menu</div>
+    <div class="pay-body">
+        <h1 id="p-amt" style="font-size: 45px; color: #2ecc71;">₹0</h1>
+        <p style="color: #7b849a; margin-bottom: 20px;">Safe & Secure Payment</p>
+        <input type="text" id="target-link" class="link-input" placeholder="Paste Link/Username Here">
+        <div class="qr-wrap"><img id="qr-img" src="" style="width: 200px; height: 200px;"></div>
+        <button class="buy-btn" style="width: 100%; padding: 20px; font-size: 18px;" onclick="processPay()">PAY
