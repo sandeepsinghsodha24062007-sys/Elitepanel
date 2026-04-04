@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -15,16 +15,15 @@
         .top-bar { background: #004d00; color: #00ff00; font-size: 11px; font-weight: 800; text-align: center; padding: 7px; border-bottom: 1px solid #00ff0033; }
         
         header { padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; background: var(--card); border-bottom: 1px solid #232a35; }
-        .logo-img { height: 45px; width: auto; object-fit: contain; }
+        .logo-img { height: 50px; width: auto; object-fit: contain; }
 
-        .trust-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 20px 15px; }
-        .trust-item { background: var(--glass); border: 1px solid #232a35; padding: 18px; border-radius: 15px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100px; }
-        .trust-item i { font-size: 24px; margin-bottom: 8px; }
-        .trust-item p { font-size: 11px; font-weight: 700; color: #7b849a; text-transform: uppercase; }
+        .trust-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
+        .trust-item { background: var(--glass); border: 1px solid #232a35; padding: 15px; border-radius: 15px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 90px; }
+        .trust-item i { font-size: 22px; margin-bottom: 8px; }
+        .trust-item p { font-size: 10px; font-weight: 700; color: #7b849a; text-transform: uppercase; }
 
-        .category-box { background: linear-gradient(145deg, #1a202c, #12161f); margin: 0 15px 15px; padding: 20px; border-radius: 18px; display: flex; align-items: center; justify-content: space-between; border: 1px solid #2d3748; cursor: pointer; transition: 0.3s; }
-        .category-box:active { transform: scale(0.96); }
-
+        .category-box { background: linear-gradient(145deg, #1a202c, #12161f); margin: 0 15px 12px; padding: 20px; border-radius: 18px; display: flex; align-items: center; justify-content: space-between; border: 1px solid #2d3748; cursor: pointer; }
+        
         .filter-tabs { display: flex; gap: 10px; overflow-x: auto; padding: 10px 15px; scrollbar-width: none; }
         .tab-btn { padding: 10px 22px; background: var(--card); border: 1px solid #232a35; border-radius: 50px; font-size: 12px; font-weight: 700; color: #7b849a; white-space: nowrap; }
         .tab-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
@@ -32,21 +31,18 @@
         .full-view { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 2000; overflow-y: auto; padding-bottom: 100px; animation: slideIn 0.3s ease; }
         .view-header { padding: 20px; background: var(--card); display: flex; align-items: center; gap: 15px; font-weight: 800; border-bottom: 1px solid #232a35; }
 
-        /* Cool Service Card Design */
-        .service-card { background: rgba(255,255,255,0.02); margin: 12px 15px; padding: 18px; border-radius: 15px; border: 1px solid #232a35; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; }
-        .service-card:active { background: rgba(0,210,255,0.05); border-color: var(--accent); }
-        .price-badge { background: rgba(46, 204, 113, 0.15); border: 1px solid var(--green); padding: 8px 15px; border-radius: 12px; min-width: 80px; text-align: center; }
+        .service-card { background: rgba(255,255,255,0.02); margin: 10px 15px; padding: 18px; border-radius: 15px; border: 1px solid #232a35; display: flex; justify-content: space-between; align-items: center; }
+        .price-badge { background: rgba(46, 204, 113, 0.15); border: 1px solid var(--green); padding: 8px 15px; border-radius: 12px; min-width: 85px; text-align: center; }
         .price-tag { font-size: 18px; font-weight: 900; color: var(--green); }
 
-        .main-input { width: 100%; background: var(--card); border: 2px solid #2d3748; padding: 20px; border-radius: 15px; color: white; font-size: 16px; margin-top: 15px; outline: none; }
-        
-        /* Unified Buttons */
-        .btn-action { width: 100%; height: 60px; border-radius: 15px; border: none; font-weight: 900; font-size: 16px; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+        .btn-action { width: 100%; height: 60px; border-radius: 15px; border: none; font-weight: 900; font-size: 16px; cursor: pointer; text-transform: uppercase; }
         .btn-blue { background: var(--accent); color: white; margin-top: 20px; }
         .btn-green { background: var(--green); color: white; margin-top: 15px; }
 
+        .main-input { width: 100%; background: var(--card); border: 2px solid #2d3748; padding: 20px; border-radius: 15px; color: white; font-size: 16px; margin-top: 15px; outline: none; }
+
         .support-group { position: fixed; bottom: 30px; right: 20px; display: flex; flex-direction: column; gap: 12px; z-index: 1500; }
-        .s-icon { width: 55px; height: 55px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 25px; color: white; box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
+        .s-icon { width: 55px; height: 55px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 25px; color: white; }
         
         #proc-view { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 5000; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
         .loader { width: 60px; height: 60px; border: 6px solid var(--glass); border-top: 6px solid var(--accent); border-radius: 50%; animation: spin 1s linear infinite; }
@@ -55,11 +51,11 @@
 </head>
 <body>
 
-<div class="top-bar">✅ 24/7 LIVE SUPPORT • DELIVERY FAST</div>
+<div class="top-bar">✅ 24/7 LIVE SUPPORT • FASTEST DELIVERY</div>
 
 <header>
     <img src="https://i.ibb.co/67vW0N3r/1000052893-removebg-preview.png" alt="FASTXERA" class="logo-img">
-    <div style="font-size: 10px; color: var(--green); font-weight: 800;"><i class="fas fa-check-circle"></i> VERIFIED</div>
+    <div style="font-size: 10px; color: var(--green); font-weight: 800;"><i class="fas fa-check-circle"></i> ELITE</div>
 </header>
 
 <div class="trust-grid">
@@ -67,7 +63,7 @@
     <div class="trust-item"><b>100%</b><p>Safe Panel</p></div>
 </div>
 
-<div style="padding: 0 20px 10px; font-size:12px; color:#7b849a; font-weight:800; text-transform:uppercase">Main Categories</div>
+<div style="padding: 0 20px 10px; font-size:11px; color:#7b849a; font-weight:800; text-transform:uppercase">Main Services</div>
 
 <div class="category-box" onclick="openSection('insta')">
     <div style="display:flex; align-items:center; gap:15px"><i class="fab fa-instagram" style="font-size:30px; color:#e1306c"></i> <div><h3>Instagram</h3><p style="font-size:11px; color:#7b849a">Followers, Likes, Views</p></div></div>
@@ -75,16 +71,16 @@
 </div>
 
 <div class="category-box" onclick="openSection('yt')">
-    <div style="display:flex; align-items:center; gap:15px"><i class="fab fa-youtube" style="font-size:30px; color:#ff0000"></i> <div><h3>YouTube</h3><p style="font-size:11px; color:#7b849a">Subscribers, WatchTime</p></div></div>
+    <div style="display:flex; align-items:center; gap:15px"><i class="fab fa-youtube" style="font-size:30px; color:#ff0000"></i> <div><h3>YouTube</h3><p style="font-size:11px; color:#7b849a">Subscribers, Views</p></div></div>
     <i class="fas fa-arrow-right" style="opacity:0.3"></i>
 </div>
 
 <div class="category-box" onclick="openSection('special')">
-    <div style="display:flex; align-items:center; gap:15px"><i class="fas fa-bolt" style="font-size:30px; color:var(--gold)"></i> <div><h3>Special</h3><p style="font-size:11px; color:#7b849a">Blue Tick, Active Users</p></div></div>
+    <div style="display:flex; align-items:center; gap:15px"><i class="fas fa-star" style="font-size:28px; color:var(--gold)"></i> <div><h3>Special Plans</h3><p style="font-size:11px; color:#7b849a">Blue Tick, Active Users</p></div></div>
     <i class="fas fa-arrow-right" style="opacity:0.3"></i>
 </div>
 
-<div style="padding: 10px 20px; font-size:12px; color:#7b849a; font-weight:800; text-transform:uppercase">Why Choose Us?</div>
+<div style="padding: 10px 20px; font-size:11px; color:#7b849a; font-weight:800; text-transform:uppercase">Why Choose Us?</div>
 <div class="trust-grid" style="padding-top:0">
     <div class="trust-item"><i class="fas fa-headset" style="color:var(--green)"></i><p>24/7 Support</p></div>
     <div class="trust-item"><i class="fas fa-bolt" style="color:var(--gold)"></i><p>Fast Delivery</p></div>
@@ -93,7 +89,7 @@
 </div>
 
 <div id="service-view" class="full-view">
-    <div class="view-header" onclick="closeView('service-view')"><i class="fas fa-arrow-left"></i> <span id="v-title">Select Service</span></div>
+    <div class="view-header" onclick="closeView('service-view')"><i class="fas fa-arrow-left"></i> <span id="v-title">Services</span></div>
     <div id="filter-container" class="filter-tabs"></div>
     <div id="service-list"></div>
 </div>
@@ -102,8 +98,7 @@
     <div class="view-header" onclick="closeView('form-view')"><i class="fas fa-arrow-left"></i> BACK</div>
     <div style="padding:30px 20px">
         <h2 id="f-srv-name" style="color:var(--gold); margin-bottom:10px">Service Name</h2>
-        <input type="text" id="user-id" class="main-input" placeholder="Enter Username / Profile Link">
-        <p style="color:#ff4757; font-size:11px; margin-top:12px; font-weight:700; text-align:center;">⚠️ ACCOUNT MUST BE PUBLIC!</p>
+        <input type="text" id="user-id" class="main-input" placeholder="Enter Username / Link">
         <button class="btn-action btn-blue" onclick="goToPay()">Continue</button>
     </div>
 </div>
@@ -111,14 +106,13 @@
 <div id="pay-view" class="full-view">
     <div class="view-header" onclick="closeView('pay-view')"><i class="fas fa-arrow-left"></i> BACK</div>
     <div style="padding:20px; text-align:center">
-        <p style="color:#7b849a; font-weight:700; font-size:12px">PAYMENT AMOUNT</p>
         <h1 id="p-amt" style="font-size:55px; color:var(--green); margin:10px 0">₹0</h1>
         <div style="background:white; padding:12px; border-radius:20px; display:inline-block; margin:15px 0; border:5px solid var(--accent)"><img id="qr-img" src="" style="width:180px"></div>
         <div style="background:var(--card); padding:15px; border-radius:12px; display:flex; justify-content:space-between; margin-bottom:20px; border:1px dashed #444">
             <span style="font-size:14px">sbehhejebns@axl</span>
             <span onclick="copyUPI()" style="color:var(--accent); font-weight:800">COPY</span>
         </div>
-        <button class="btn-action btn-blue" onclick="openUPI()">1. PAY VIA UPI APP</button>
+        <button class="btn-action btn-blue" style="margin-bottom:10px" onclick="openUPI()">1. PAY VIA UPI APP</button>
         <button class="btn-action btn-green" onclick="startProcessing()">2. I HAVE PAID (CONFIRM)</button>
     </div>
 </div>
@@ -126,7 +120,7 @@
 <div id="proc-view">
     <div id="proc-content">
         <div class="loader"></div>
-        <h2 style="margin-top:25px; letter-spacing:1px">VERIFYING...</h2>
+        <h2 style="margin-top:25px">VERIFYING...</h2>
     </div>
 </div>
 
@@ -145,25 +139,46 @@
             name: "Instagram",
             tabs: ["All", "Followers", "Likes", "Views"],
             items: [
-                {n: "100 Followers (Demo)", p: 20, t: "Followers"}, {n: "5k Followers", p: 99, t: "Followers"}, {n: "10k Followers", p: 159, t: "Followers"}, {n: "50k Followers", p: 429, t: "Followers"},
-                {n: "10k Likes", p: 80, t: "Likes"}, {n: "50k Likes", p: 250, t: "Likes"},
-                {n: "50k Views", p: 100, t: "Views"}, {n: "100k Views", p: 150, t: "Views"}
+                {n: "100 Followers", p: 20, t: "Followers", sub: "For demo or trust"},
+                {n: "5k Followers", p: 99, t: "Followers", sub: "Premium Quality"},
+                {n: "10k Followers", p: 159, t: "Followers", sub: "Premium Quality"},
+                {n: "20k Followers", p: 239, t: "Followers", sub: "Premium Quality"},
+                {n: "50k Followers", p: 429, t: "Followers", sub: "Premium Quality"},
+                {n: "100k Followers", p: 700, t: "Followers", sub: "Premium Quality"},
+                {n: "10k Likes", p: 80, t: "Likes", sub: "Instant Start"},
+                {n: "20k Likes", p: 140, t: "Likes", sub: "Instant Start"},
+                {n: "50k Likes", p: 250, t: "Likes", sub: "Instant Start"},
+                {n: "100k Likes", p: 350, t: "Likes", sub: "Instant Start"},
+                {n: "10k Views", p: 40, t: "Views", sub: "Super Fast"},
+                {n: "20k Views", p: 60, t: "Views", sub: "Super Fast"},
+                {n: "50k Views", p: 100, t: "Views", sub: "Super Fast"},
+                {n: "100k Views", p: 150, t: "Views", sub: "Super Fast"},
+                {n: "500k Views", p: 250, t: "Views", sub: "Super Fast"}
             ]
         },
         yt: {
             name: "YouTube",
-            tabs: ["All", "Subscribers", "Views", "WatchTime"],
+            tabs: ["All", "Subscribers", "Views"],
             items: [
-                {n: "1k Subscribers", p: 100, t: "Subscribers"}, {n: "5k Subscribers", p: 400, t: "Subscribers"},
-                {n: "10k Views", p: 170, t: "Views"}, {n: "100k Views", p: 800, t: "Views"},
-                {n: "4k WatchTime", p: 199, t: "WatchTime"}
+                {n: "1k Subscribers", p: 100, t: "Subscribers", sub: "Real Users"},
+                {n: "5k Subscribers", p: 400, t: "Subscribers", sub: "Real Users"},
+                {n: "10k Subscribers", p: 700, t: "Subscribers", sub: "Real Users"},
+                {n: "50k Subscribers", p: 1800, t: "Subscribers", sub: "Real Users"},
+                {n: "5k Views", p: 100, t: "Views", sub: "High Retention"},
+                {n: "10k Views", p: 170, t: "Views", sub: "High Retention"},
+                {n: "50k Views", p: 500, t: "Views", sub: "High Retention"},
+                {n: "100k Views", p: 800, t: "Views", sub: "High Retention"},
+                {n: "1M Views", p: 2500, t: "Views", sub: "High Retention"}
             ]
         },
         special: {
-            name: "Special",
+            name: "Special Plans",
             tabs: ["All"],
             items: [
-                {n: "Blue Tick Lifetime", p: 399, t: "All"}, {n: "10k Active Followers", p: 250, t: "All"}
+                {n: "Insta Blue Tick", p: 399, t: "All", sub: "Life time warranty"},
+                {n: "10k Active Followers", p: 250, t: "All", sub: "Real Engagement"},
+                {n: "50k Active Followers", p: 500, t: "All", sub: "Real Engagement"},
+                {n: "1k Subs + 4k Watch Time", p: 199, t: "All", sub: "YouTube Combo Offer"}
             ]
         }
     };
@@ -172,7 +187,7 @@
         currentCat = cat;
         const v = document.getElementById('service-view');
         const tContainer = document.getElementById('filter-container');
-        document.getElementById('v-title').innerText = db[cat].name + " Services";
+        document.getElementById('v-title').innerText = db[cat].name;
         tContainer.innerHTML = db[cat].tabs.map(t => `<div class="tab-btn ${t==='All'?'active':''}" onclick="filterSrv('${t}', this)">${t}</div>`).join('');
         filterSrv('All');
         v.style.display = 'block';
@@ -187,7 +202,7 @@
         const filtered = tab === 'All' ? db[currentCat].items : db[currentCat].items.filter(i => i.t === tab);
         list.innerHTML = filtered.map(i => `
             <div class="service-card" onclick="openForm('${i.n}', ${i.p})">
-                <div><h4 style="font-size:14px">${i.n}</h4><p style="font-size:11px; color:#7b849a">Instant Start</p></div>
+                <div><h4 style="font-size:15px">${i.n}</h4><p style="font-size:11px; color:#7b849a">${i.sub}</p></div>
                 <div class="price-badge"><span class="price-tag">₹${i.p}</span></div>
             </div>
         `).join('');
@@ -200,9 +215,9 @@
     }
 
     function goToPay() {
-        if(!document.getElementById('user-id').value) return alert("Please enter your ID!");
+        if(!document.getElementById('user-id').value) return alert("Please enter Link/Username!");
         document.getElementById('p-amt').innerText = "₹" + activeSrv.p;
-        document.getElementById('qr-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=${UPI_ID}&am=${activeSrv.p}`;
+        document.getElementById('qr-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=${UPI_ID}&am=${activeSrv.p}`;
         document.getElementById('pay-view').style.display = 'block';
     }
 
@@ -225,5 +240,5 @@
     function copyUPI() { navigator.clipboard.writeText(UPI_ID); alert("UPI ID Copied!"); }
 </script>
 </body>
-            </html>
-        
+                                                                                                                                                                                                                                           </html>
+            
