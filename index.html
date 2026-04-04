@@ -1,180 +1,230 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>FASTXERA PRO | ELITE SMM</title>
+    <title>FASTXERA | ELITE SMM PANEL</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root { --bg: #0b0e14; --card: #151921; --accent: #5468ff; --gold: #ff9f43; --text: #ffffff; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background: var(--bg); color: var(--text); -webkit-tap-highlight-color: transparent; overflow-x: hidden; }
+        :root { --bg: #05070a; --card: #12161f; --accent: #00d2ff; --gold: #ff9f43; --green: #2ecc71; --glass: rgba(255, 255, 255, 0.03); }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background: var(--bg); color: white; overflow-x: hidden; }
 
-        /* HEADER */
-        header { padding: 15px 20px; background: var(--card); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #232a35; position: sticky; top: 0; z-index: 1000; }
-        .logo { font-size: 22px; font-weight: 800; color: var(--gold); letter-spacing: 1px; }
-        .status { color: #2ecc71; font-size: 11px; font-weight: 600; display: flex; align-items: center; gap: 5px; }
+        /* Top Support Bar */
+        .top-bar { background: #004d00; color: #00ff00; font-size: 10px; font-weight: 800; text-align: center; padding: 5px; letter-spacing: 1px; border-bottom: 1px solid #00ff0033; }
 
-        /* STATS BOX */
-        .stats { background: linear-gradient(135deg, rgba(84,104,255,0.1), rgba(255,159,67,0.1)); margin: 15px; padding: 20px; border-radius: 15px; display: flex; justify-content: space-around; border: 1px solid #232a35; }
-        .stat-box { text-align: center; }
-        .stat-box h2 { color: var(--gold); font-size: 20px; }
-        .stat-box p { font-size: 10px; color: #7b849a; text-transform: uppercase; }
+        header { padding: 20px; display: flex; justify-content: space-between; align-items: center; background: var(--card); border-bottom: 1px solid #232a35; }
+        .logo { font-size: 24px; font-weight: 900; color: var(--gold); font-style: italic; }
 
-        /* CATEGORY TABS */
-        .tabs-container { display: flex; overflow-x: auto; padding: 0 15px 15px; gap: 10px; scrollbar-width: none; }
-        .tab { padding: 12px 25px; background: #1c222d; border-radius: 50px; font-size: 14px; font-weight: 600; color: #7b849a; border: 1px solid #232a35; white-space: nowrap; cursor: pointer; transition: 0.3s; }
-        .tab.active { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 5px 15px rgba(84,104,255,0.4); }
+        /* Trust Stats */
+        .trust-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 15px; }
+        .trust-item { background: var(--glass); border: 1px solid #232a35; padding: 15px; border-radius: 12px; text-align: center; }
+        .trust-item b { display: block; font-size: 18px; color: var(--accent); }
+        .trust-item span { font-size: 10px; color: #7b849a; text-transform: uppercase; }
 
-        /* SERVICE CARDS */
-        .service-list { padding: 0 15px 120px; display: none; }
-        .service-list.active { display: block; animation: fadeIn 0.4s; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* Main Category Boxes */
+        .cat-title { padding: 10px 20px; font-size: 14px; color: #7b849a; font-weight: 600; }
+        .category-box { background: linear-gradient(145deg, #1a202c, #12161f); margin: 0 15px 15px; padding: 20px; border-radius: 20px; display: flex; align-items: center; justify-content: space-between; border: 1px solid #2d3748; transition: 0.3s; }
+        .category-box:active { transform: scale(0.96); }
+        .cat-info { display: flex; align-items: center; gap: 15px; }
+        .cat-info i { font-size: 30px; }
+        .fa-instagram { color: #e1306c; } .fa-youtube { color: #ff0000; } .fa-star { color: var(--gold); }
 
-        .card { background: var(--card); border-radius: 18px; padding: 20px; margin-bottom: 15px; border: 1px solid #232a35; display: flex; justify-content: space-between; align-items: center; position: relative; }
-        .card h3 { font-size: 15px; margin-bottom: 5px; width: 60%; }
-        .price { font-size: 24px; font-weight: 800; color: #2ecc71; }
-        .buy-btn { background: var(--accent); color: white; border: none; padding: 12px 25px; border-radius: 12px; font-weight: 700; cursor: pointer; }
+        /* Service Lists */
+        #service-view { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 2000; overflow-y: auto; padding-bottom: 100px; }
+        .view-header { padding: 20px; background: var(--card); display: flex; align-items: center; gap: 15px; font-weight: 700; border-bottom: 1px solid #232a35; }
+        .service-card { background: var(--card); margin: 15px; padding: 20px; border-radius: 15px; border-left: 4px solid var(--accent); display: flex; justify-content: space-between; align-items: center; }
+        .service-card h4 { font-size: 14px; margin-bottom: 4px; }
+        .service-card p { font-size: 11px; color: #7b849a; }
+        .price-tag { font-size: 22px; font-weight: 900; color: var(--green); }
 
-        /* POPUP NOTIFICATION */
-        #popup { position: fixed; bottom: 25px; left: 20px; background: #000; border: 1px solid var(--gold); padding: 12px 18px; border-radius: 12px; display: none; z-index: 9999; animation: slideUp 0.6s ease-out; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        @keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        /* Form Page */
+        #form-view { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 3000; padding: 30px 20px; }
+        .input-wrap { margin-top: 30px; }
+        .input-wrap label { font-size: 12px; color: #7b849a; margin-left: 5px; }
+        .main-input { width: 100%; background: var(--card); border: 1px solid #2d3748; padding: 20px; border-radius: 15px; color: white; font-size: 16px; margin-top: 10px; outline: none; }
+        .warning { color: #ff4757; font-size: 11px; margin-top: 10px; font-weight: 600; }
 
-        /* WHATSAPP */
-        .wa { position: fixed; bottom: 90px; right: 20px; background: #25d366; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 30px; color: white; z-index: 1000; box-shadow: 0 5px 20px rgba(0,0,0,0.4); text-decoration: none; }
+        /* Payment Page */
+        #pay-view { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 4000; text-align: center; padding: 40px 20px; }
+        .qr-wrap { background: white; padding: 15px; border-radius: 25px; display: inline-block; margin: 25px 0; border: 5px solid var(--accent); }
+        .copy-box { background: var(--card); padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border: 1px solid #2d3748; }
 
-        /* PAYMENT OVERLAY */
-        #pay-screen { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 10000; flex-direction: column; overflow-y: auto; }
-        .pay-nav { padding: 20px; border-bottom: 1px solid #232a35; display: flex; align-items: center; gap: 15px; font-weight: 700; cursor: pointer; }
-        .pay-content { padding: 30px; text-align: center; }
-        .qr-box { background: white; padding: 15px; border-radius: 20px; display: inline-block; margin: 20px 0; border: 5px solid var(--accent); }
-        .input-group { text-align: left; margin-bottom: 25px; }
-        .input-group label { font-size: 12px; color: #7b849a; margin-left: 5px; }
-        .input-box { width: 100%; background: #1c222d; border: 1px solid #232a35; padding: 18px; border-radius: 15px; color: white; margin-top: 8px; outline: none; font-size: 16px; }
+        /* Processing Overlay */
+        #proc-view { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 5000; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+        .loader { width: 50px; height: 50px; border: 5px solid var(--glass); border-top: 5px solid var(--accent); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* Floating Support */
+        .support-icons { position: fixed; bottom: 30px; right: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 1500; }
+        .s-icon { width: 55px; height: 55px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 25px; color: white; box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
+
+        /* Popups */
+        #popup { position: fixed; bottom: 100px; left: 20px; background: rgba(0,0,0,0.9); border: 1px solid var(--gold); padding: 12px 20px; border-radius: 10px; font-size: 12px; animation: slideUp 0.5s forwards; display: none; z-index: 1000; }
+        @keyframes slideUp { from { transform: translateY(50px); opacity:0; } to { transform: translateY(0); opacity:1; } }
     </style>
 </head>
 <body>
 
+<div class="top-bar">● 24/7 LIVE SUPPORT ACTIVE</div>
+
 <header>
     <div class="logo">FASTXERA</div>
-    <div class="status"><i class="fas fa-bolt"></i> SYSTEM ACTIVE</div>
+    <div style="font-size: 11px; color: var(--green)"><i class="fas fa-shield-alt"></i> SECURE</div>
 </header>
 
-<div class="stats">
-    <div class="stat-box"><h2>48k+</h2><p>Users</p></div>
-    <div class="stat-box"><h2>1.2k</h2><p>Orders</p></div>
-    <div class="stat-box"><h2>0.1s</h2><p>Server</p></div>
+<div class="trust-grid">
+    <div class="trust-item"><b>2500+</b><span>Orders Done</span></div>
+    <div class="trust-item"><b>Instant</b><span>Start Speed</span></div>
 </div>
 
-<div class="tabs-container">
-    <div class="tab active" onclick="showSection('insta')">Instagram</div>
-    <div class="tab" onclick="showSection('yt')">YouTube</div>
-    <div class="tab" onclick="showSection('tg')">Telegram</div>
-    <div class="tab" onclick="showSection('fb')">Facebook</div>
+<div class="cat-title">SELECT CATEGORY</div>
+
+<div class="category-box" onclick="openSection('insta')">
+    <div class="cat-info"><i class="fab fa-instagram"></i> <div><h3>Instagram</h3><p>Followers, Likes, Views</p></div></div>
+    <i class="fas fa-chevron-right"></i>
 </div>
 
-<div id="insta" class="service-list active">
-    <div class="card">
-        <div><h3>10k Instagram Followers</h3><div class="price">₹159</div></div>
-        <button class="buy-btn" onclick="openPay('10k Insta Followers', 159)">Buy</button>
-    </div>
-    <div class="card">
-        <div><h3>5k Instagram Likes</h3><div class="price">₹79</div></div>
-        <button class="buy-btn" onclick="openPay('5k Insta Likes', 79)">Buy</button>
-    </div>
+<div class="category-box" onclick="openSection('yt')">
+    <div class="cat-info"><i class="fab fa-youtube"></i> <div><h3>YouTube</h3><p>Subs, WatchTime, Views</p></div></div>
+    <i class="fas fa-chevron-right"></i>
 </div>
 
-<div id="yt" class="service-list">
-    <div class="card">
-        <div><h3>1k YouTube Subs</h3><div class="price">₹299</div></div>
-        <button class="buy-btn" onclick="openPay('1k YouTube Subs', 299)">Buy</button>
-    </div>
-    <div class="card">
-        <div><h3>4k Watch Hours</h3><div class="price">₹999</div></div>
-        <button class="buy-btn" onclick="openPay('4k Watch Hours', 999)">Buy</button>
-    </div>
+<div class="category-box" onclick="openSection('special')">
+    <div class="cat-info"><i class="fas fa-star" style="color:var(--gold)"></i> <div><h3>Special Services</h3><p>Blue Tick, Active Members</p></div></div>
+    <i class="fas fa-chevron-right"></i>
 </div>
 
-<div id="tg" class="service-list">
-    <div class="card">
-        <div><h3>1k Telegram Members</h3><div class="price">₹120</div></div>
-        <button class="buy-btn" onclick="openPay('1k TG Members', 120)">Buy</button>
-    </div>
+<div class="cat-title">WHY CHOOSE US?</div>
+<div style="padding: 0 15px 100px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+    <div class="trust-item"><i class="fas fa-bolt" style="color:var(--gold)"></i><br>Fast Delivery</div>
+    <div class="trust-item"><i class="fas fa-user-check" style="color:var(--accent)"></i><br>Real Users</div>
+    <div class="trust-item"><i class="fas fa-lock" style="color:var(--green)"></i><br>No Password</div>
+    <div class="trust-item"><i class="fas fa-headset" style="color:#ff4757"></i><br>24/7 Help</div>
 </div>
 
-<div id="fb" class="service-list">
-    <div class="card">
-        <div><h3>1k FB Page Likes</h3><div class="price">₹180</div></div>
-        <button class="buy-btn" onclick="openPay('1k FB Likes', 180)">Buy</button>
+<div id="service-view">
+    <div class="view-header" onclick="closeView('service-view')"><i class="fas fa-arrow-left"></i> <span id="view-title">Back</span></div>
+    <div id="service-list"></div>
+</div>
+
+<div id="form-view">
+    <div onclick="closeView('form-view')" style="font-weight:700"><i class="fas fa-arrow-left"></i> BACK</div>
+    <div class="input-wrap">
+        <h2 id="form-srv-name">Service Name</h2>
+        <p style="color:#7b849a; margin-top:5px;">Enter details below to proceed</p>
+        <label style="display:block; margin-top:30px;">INSTAGRAM ID / LINK</label>
+        <input type="text" id="user-id" class="main-input" placeholder="e.g. @yourname">
+        <p class="warning">⚠️ ID MUST BE PUBLIC. CHECK CAREFULLY.</p>
+        <button class="category-box" style="width:100%; margin:30px 0; background:var(--accent); color:white; justify-content:center; font-weight:800;" onclick="goToPay()">CONTINUE TO PAYMENT</button>
     </div>
 </div>
 
-<a href="https://wa.me/91XXXXXXXXXX" class="wa"><i class="fab fa-whatsapp"></i></a>
-<div id="popup">🔥 Someone just bought followers!</div>
+<div id="pay-view">
+    <h3 id="pay-srv-name">Pay for Service</h3>
+    <h1 id="pay-amt" style="font-size:45px; color:var(--green); margin:10px 0;">₹0</h1>
+    <div class="qr-wrap"><img id="qr-img" src="" style="width:200px"></div>
+    <div class="copy-box">
+        <span id="upi-id">sbehhejebns@axl</span>
+        <i class="fas fa-copy" onclick="copyUPI()" style="color:var(--accent)"></i>
+    </div>
+    <button class="category-box" style="width:100%; background:var(--green); color:white; justify-content:center; font-weight:800;" onclick="finalPay()">DIRECT PAY VIA APP</button>
+    <p style="font-size:10px; color:#7b849a; margin-top:15px;">After payment, please return to this page</p>
+</div>
 
-<div id="pay-screen">
-    <div class="pay-nav" onclick="closePay()"><i class="fas fa-arrow-left"></i> Back to Menu</div>
-    <div class="pay-content">
-        <h1 id="p-amt" style="font-size: 50px; color: #2ecc71;">₹0</h1>
-        <p style="color: #7b849a;">Payment for: <span id="p-srv" style="color:white"></span></p>
-        
-        <div class="input-group" style="margin-top:20px">
-            <label>Target URL / Username</label>
-            <input type="text" id="target" class="input-box" placeholder="Paste Link Here...">
-        </div>
-
-        <div class="qr-box">
-            <img id="qr" src="" style="width: 220px; height: 220px;">
-        </div>
-        
-        <p style="font-size: 12px; color: #7b849a; margin-bottom: 20px;">Scan QR or click below to pay</p>
-        <button class="buy-btn" style="width: 100%; padding: 20px; font-size: 18px;" onclick="payNow()">Pay via UPI App</button>
+<div id="proc-view">
+    <div id="proc-content">
+        <div class="loader"></div>
+        <h2 style="margin-top:20px;">Checking Payment...</h2>
+        <p style="color:#7b849a;">Please do not close this window</p>
     </div>
 </div>
+
+<div class="support-icons">
+    <a href="https://wa.me/9376307379" class="s-icon" style="background:#25d366"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://instagram.com/ss_service_support" class="s-icon" style="background:#e1306c"><i class="fab fa-instagram"></i></a>
+</div>
+
+<div id="popup"></div>
 
 <script>
-    const UPI_ID = "sbehhejebns@axl";
-    let currentAmt = 0;
+    const UPI = "sbehhejebns@axl";
+    let selectedService = {};
 
-    function showSection(id) {
-        document.querySelectorAll('.service-list').forEach(s => s.classList.remove('active'));
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        event.currentTarget.classList.add('active');
+    const db = {
+        insta: {
+            title: "Instagram Services",
+            items: [
+                {name: "100 Followers (Demo)", p: 20}, {name: "10k Followers", p: 159}, {name: "10k Likes", p: 80}, {name: "10k Views", p: 40}
+            ]
+        },
+        yt: {
+            title: "YouTube Services",
+            items: [
+                {name: "1k Subscribers", p: 100}, {name: "5k Views", p: 100}, {name: "4k WatchTime", p: 199}
+            ]
+        },
+        special: {
+            title: "Special Services",
+            items: [
+                {name: "Insta Blue Tick", p: 399}, {name: "10k Active Followers", p: 250}
+            ]
+        }
+    };
+
+    function openSection(key) {
+        const view = document.getElementById('service-view');
+        const list = document.getElementById('service-list');
+        document.getElementById('view-title').innerText = db[key].title;
+        list.innerHTML = db[key].items.map(i => `
+            <div class="service-card" onclick="openForm('${i.name}', ${i.p})">
+                <div><h4>${i.name}</h4><p>High Quality • Fast Start</p></div>
+                <div class="price-tag">₹${i.p}</div>
+            </div>
+        `).join('');
+        view.style.display = 'block';
     }
 
-    function openPay(srv, price) {
-        currentAmt = price;
-        document.getElementById('p-amt').innerText = "₹" + price;
-        document.getElementById('p-srv').innerText = srv;
-        document.getElementById('qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=upi://pay?pa=${UPI_ID}&pn=FASTX&am=${price}&cu=INR`;
-        document.getElementById('pay-screen').style.display = 'flex';
+    function openForm(name, price) {
+        selectedService = {name, price};
+        document.getElementById('form-srv-name').innerText = name;
+        document.getElementById('form-view').style.display = 'block';
     }
 
-    function closePay() { document.getElementById('pay-screen').style.display = 'none'; }
-
-    function payNow() {
-        let link = document.getElementById('target').value;
-        if(!link) { alert("Please enter your Link/Username first!"); return; }
-        window.location.href = `upi://pay?pa=${UPI_ID}&pn=FASTX&am=${currentAmt}&cu=INR`;
+    function goToPay() {
+        if(!document.getElementById('user-id').value) return alert("Please enter ID!");
+        document.getElementById('pay-srv-name').innerText = selectedService.name;
+        document.getElementById('pay-amt').innerText = "₹" + selectedService.price;
+        document.getElementById('qr-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa=${UPI}&pn=FASTXERA&am=${selectedService.price}&cu=INR`;
+        document.getElementById('pay-view').style.display = 'block';
     }
 
-    // Live Popup System
-    const users = ["Rahul", "Ankit", "Priya", "Sonia", "Vikram", "Deepak"];
-    const items = ["10k Insta Followers", "5k Likes", "1k YouTube Subs", "500 Telegram Members"];
-    
-    function startPopup() {
-        setInterval(() => {
-            const user = users[Math.floor(Math.random()*users.length)];
-            const item = items[Math.floor(Math.random()*items.length)];
-            const p = document.getElementById('popup');
-            p.innerText = `🔥 ${user} just bought ${item}!`;
-            p.style.display = 'block';
-            setTimeout(() => { p.style.display = 'none'; }, 4000);
-        }, 8000);
+    function finalPay() {
+        window.location.href = `upi://pay?pa=${UPI}&pn=FASTXERA&am=${selectedService.price}&cu=INR`;
+        setTimeout(() => {
+            document.getElementById('proc-view').style.display = 'flex';
+            setTimeout(() => {
+                document.getElementById('proc-content').innerHTML = `
+                    <i class="fas fa-check-circle" style="font-size:60px; color:var(--green)"></i>
+                    <h2 style="margin-top:20px;">Order Processed!</h2>
+                    <p style="padding:20px; color:#7b849a;">We are verifying payment. Your order will complete within 30-60 mins.</p>
+                    <button class="category-box" onclick="location.reload()" style="background:var(--accent); color:white; width:80%;">DONE</button>
+                `;
+            }, 5000);
+        }, 2000);
     }
-    startPopup();
+
+    function closeView(id) { document.getElementById(id).style.display = 'none'; }
+    function copyUPI() { navigator.clipboard.writeText(UPI); alert("UPI ID Copied!"); }
+
+    const names = ["Rahul", "Ankit", "Priya", "Arjun", "Sonia", "Vikram", "Deepak"];
+    const srvs = ["10k Followers", "5k Likes", "1k Subs", "Views Pack"];
+    setInterval(() => {
+        const p = document.getElementById('popup');
+        p.innerText = `🔥 ${names[Math.floor(Math.random()*names.length)]} just bought ${srvs[Math.floor(Math.random()*srvs.length)]}!`;
+        p.style.display = 'block';
+        setTimeout(() => p.style.display = 'none', 4000);
+    }, 10000);
 </script>
-
 </body>
 </html>
