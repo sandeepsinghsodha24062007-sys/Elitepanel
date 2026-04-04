@@ -3,247 +3,241 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>FASTXERA | ELITE SMM PANEL</title>
+    <title>FASTXERA | ELITE V4</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root { --bg: #05070a; --card: #12161f; --accent: #00d2ff; --gold: #ff9f43; --green: #2ecc71; --glass: rgba(255, 255, 255, 0.03); }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background: var(--bg); color: white; overflow-x: hidden; }
 
-        /* 1. Green Support Bar */
-        .top-bar { background: #004d00; color: #00ff00; font-size: 11px; font-weight: 800; text-align: center; padding: 6px; letter-spacing: 1px; border-bottom: 1px solid #00ff0033; }
+        /* Animations */
+        @keyframes slideIn { from { transform: translateX(30px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
+        .top-bar { background: #004d00; color: #00ff00; font-size: 11px; font-weight: 800; text-align: center; padding: 7px; border-bottom: 1px solid #00ff0033; }
         header { padding: 20px; display: flex; justify-content: space-between; align-items: center; background: var(--card); border-bottom: 1px solid #232a35; }
         .logo { font-size: 24px; font-weight: 900; color: var(--gold); font-style: italic; }
 
-        /* 2. Trust Grid (2500+ Orders) */
         .trust-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 20px 15px; }
-        .trust-item { background: var(--glass); border: 1px solid #232a35; padding: 18px; border-radius: 15px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .trust-item { background: var(--glass); border: 1px solid #232a35; padding: 18px; border-radius: 15px; text-align: center; }
         .trust-item b { display: block; font-size: 20px; color: var(--accent); }
-        .trust-item span { font-size: 10px; color: #7b849a; text-transform: uppercase; font-weight: 700; }
 
-        /* 3. Category Boxes (Stylish & Cool) */
-        .cat-title { padding: 10px 20px; font-size: 13px; color: #7b849a; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
-        .category-box { background: linear-gradient(145deg, #1a202c, #12161f); margin: 0 15px 15px; padding: 22px; border-radius: 20px; display: flex; align-items: center; justify-content: space-between; border: 1px solid #2d3748; transition: 0.2s; position: relative; overflow: hidden; }
-        .category-box:active { transform: scale(0.95); background: #1c2533; }
-        .cat-info { display: flex; align-items: center; gap: 18px; }
-        .cat-info i { font-size: 32px; }
-        .fa-instagram { color: #e1306c; } .fa-youtube { color: #ff0000; } .fa-bolt { color: var(--gold); }
+        .category-box { background: linear-gradient(145deg, #1a202c, #12161f); margin: 0 15px 15px; padding: 22px; border-radius: 20px; display: flex; align-items: center; justify-content: space-between; border: 1px solid #2d3748; transition: 0.3s; cursor: pointer; }
+        .category-box:active { transform: scale(0.96); opacity: 0.8; }
 
-        /* Service View Section */
-        #service-view { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 2000; overflow-y: auto; padding-bottom: 100px; animation: slideIn 0.3s ease-out; }
-        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+        /* Filter Tabs */
+        .filter-tabs { display: flex; gap: 10px; overflow-x: auto; padding: 10px 15px; scrollbar-width: none; }
+        .tab-btn { padding: 8px 20px; background: var(--card); border: 1px solid #232a35; border-radius: 50px; font-size: 12px; font-weight: 700; color: #7b849a; white-space: nowrap; transition: 0.3s; }
+        .tab-btn.active { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 0 15px rgba(0,210,255,0.3); }
+
+        /* Views */
+        .full-view { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 2000; overflow-y: auto; padding-bottom: 100px; animation: fadeIn 0.3s ease; }
         .view-header { padding: 20px; background: var(--card); display: flex; align-items: center; gap: 15px; font-weight: 800; border-bottom: 1px solid #232a35; }
-        .service-card { background: var(--card); margin: 12px 15px; padding: 20px; border-radius: 18px; border: 1px solid #232a35; border-left: 5px solid var(--accent); display: flex; justify-content: space-between; align-items: center; transition: 0.2s; }
-        .service-card:active { transform: scale(0.97); border-color: var(--accent); }
-        .service-card h4 { font-size: 15px; margin-bottom: 4px; }
-        .service-card p { font-size: 11px; color: #7b849a; font-weight: 500; }
+
+        .service-card { background: var(--card); margin: 12px 15px; padding: 20px; border-radius: 18px; border-left: 5px solid var(--accent); display: flex; justify-content: space-between; align-items: center; animation: slideIn 0.3s ease; }
         .price-tag { font-size: 22px; font-weight: 900; color: var(--green); }
 
-        /* Input Page (Form) */
-        #form-view { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 3000; padding: 30px 20px; }
-        .input-wrap { margin-top: 30px; }
-        .main-input { width: 100%; background: var(--card); border: 2px solid #2d3748; padding: 22px; border-radius: 18px; color: white; font-size: 16px; margin-top: 15px; outline: none; transition: 0.3s; }
-        .main-input:focus { border-color: var(--accent); box-shadow: 0 0 15px rgba(0,210,255,0.2); }
+        /* Inputs */
+        .main-input { width: 100%; background: var(--card); border: 2px solid #2d3748; padding: 22px; border-radius: 18px; color: white; font-size: 16px; margin-top: 15px; outline: none; }
         .warning-text { color: #ff4757; font-size: 12px; margin-top: 12px; font-weight: 700; text-align: center; }
 
-        /* Payment View (Deep Link) */
-        #pay-view { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 4000; text-align: center; padding: 40px 20px; overflow-y: auto; }
-        .qr-wrap { background: white; padding: 15px; border-radius: 30px; display: inline-block; margin: 25px 0; border: 6px solid var(--accent); box-shadow: 0 0 25px rgba(0,210,255,0.3); }
-        .copy-btn { background: var(--card); padding: 18px; border-radius: 15px; display: flex; justify-content: space-between; align-items: center; margin: 10px 0 25px; border: 1px dashed #444; }
+        /* Payment Buttons */
+        .pay-btn-main { width: 100%; padding: 20px; border-radius: 15px; border: none; font-weight: 900; font-size: 18px; margin-top: 15px; cursor: pointer; transition: 0.3s; }
+        .direct-pay { background: var(--accent); color: white; }
+        .confirm-pay { background: var(--green); color: white; margin-top: 25px; border: 2px solid rgba(255,255,255,0.2); }
 
-        /* 4. Support Icons (Corner Fixed) */
+        /* Floating & Popups */
         .support-group { position: fixed; bottom: 30px; right: 20px; display: flex; flex-direction: column; gap: 12px; z-index: 1500; }
-        .s-icon { width: 58px; height: 58px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 28px; color: white; box-shadow: 0 8px 25px rgba(0,0,0,0.5); }
+        .s-icon { width: 55px; height: 55px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 25px; color: white; box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
+        #popup { position: fixed; bottom: 100px; left: 15px; background: rgba(0,0,0,0.9); border: 1.5px solid var(--gold); padding: 12px 20px; border-radius: 10px; font-size: 12px; display: none; z-index: 1000; color: white; }
 
-        /* 5. Live Popups (Black/Gold Style) */
-        #popup { position: fixed; bottom: 100px; left: 15px; background: rgba(0,0,0,0.95); border: 1.5px solid var(--gold); padding: 14px 22px; border-radius: 12px; font-size: 12px; font-weight: 600; display: none; z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.6); color: white; }
-
-        /* 7. Processing System */
+        /* Final Process Screen */
         #proc-view { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 5000; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
-        .loader-ring { width: 65px; height: 65px; border: 6px solid var(--glass); border-top: 6px solid var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+        .loader { width: 60px; height: 60px; border: 6px solid var(--glass); border-top: 6px solid var(--accent); border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
-
-        /* Why Choose Us Section */
-        .wcu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 15px 120px; }
     </style>
 </head>
 <body>
 
-<div class="top-bar">✅ 24/7 LIVE SUPPORT • FASTEST DELIVERY ACTIVE</div>
+<div class="top-bar">✅ 24/7 LIVE SUPPORT • SYSTEM SECURE</div>
 
 <header>
     <div class="logo">FASTXERA</div>
-    <div style="font-size: 11px; color: var(--green); font-weight: 700;"><i class="fas fa-check-circle"></i> VERIFIED PANEL</div>
+    <div style="font-size: 11px; color: var(--green); font-weight: 700;"><i class="fas fa-check-circle"></i> ELITE PANEL</div>
 </header>
 
 <div class="trust-grid">
-    <div class="trust-item"><b>2500+</b><span>Orders Completed</span></div>
-    <div class="trust-item"><b>100% Safe</b><span>No Password</span></div>
+    <div class="trust-item"><b>2500+</b><span>Orders Complete</span></div>
+    <div class="trust-item"><b>24/7</b><span>Human Support</span></div>
 </div>
 
-<div class="cat-title">Explore Services</div>
-
 <div class="category-box" onclick="openSection('insta')">
-    <div class="cat-info"><i class="fab fa-instagram"></i> <div><h3 style="font-size:17px">Instagram Service</h3><p>Followers, Likes, Views</p></div></div>
-    <i class="fas fa-arrow-right" style="opacity:0.5"></i>
+    <div style="display:flex; align-items:center; gap:15px"><i class="fab fa-instagram" style="font-size:30px; color:#e1306c"></i> <div><h3>Instagram Service</h3><p style="font-size:11px; color:#7b849a">Followers, Likes, Views</p></div></div>
+    <i class="fas fa-chevron-right"></i>
 </div>
 
 <div class="category-box" onclick="openSection('yt')">
-    <div class="cat-info"><i class="fab fa-youtube"></i> <div><h3 style="font-size:17px">YouTube Service</h3><p>Subscribers, WatchTime</p></div></div>
-    <i class="fas fa-arrow-right" style="opacity:0.5"></i>
+    <div style="display:flex; align-items:center; gap:15px"><i class="fab fa-youtube" style="font-size:30px; color:#ff0000"></i> <div><h3>YouTube Service</h3><p style="font-size:11px; color:#7b849a">Subscribers, WatchTime</p></div></div>
+    <i class="fas fa-chevron-right"></i>
 </div>
 
 <div class="category-box" onclick="openSection('special')">
-    <div class="cat-info"><i class="fas fa-bolt"></i> <div><h3 style="font-size:17px">Special Services</h3><p>Blue Tick, Active Users</p></div></div>
-    <i class="fas fa-arrow-right" style="opacity:0.5"></i>
+    <div style="display:flex; align-items:center; gap:15px"><i class="fas fa-bolt" style="font-size:30px; color:var(--gold)"></i> <div><h3>Special Services</h3><p style="font-size:11px; color:#7b849a">Blue Tick, Active Users</p></div></div>
+    <i class="fas fa-chevron-right"></i>
 </div>
 
-<div class="cat-title">Why Choose FastXera?</div>
-<div class="wcu-grid">
-    <div class="trust-item"><i class="fas fa-rocket" style="color:var(--gold)"></i><br><p style="font-size:11px; margin-top:5px">Fast Service</p></div>
-    <div class="trust-item"><i class="fas fa-shield-alt" style="color:var(--accent)"></i><br><p style="font-size:11px; margin-top:5px">100% Safe</p></div>
-    <div class="trust-item"><i class="fas fa-heart" style="color:#ff4757"></i><br><p style="font-size:11px; margin-top:5px">Real Engagement</p></div>
-    <div class="trust-item"><i class="fas fa-headset" style="color:var(--green)"></i><br><p style="font-size:11px; margin-top:5px">24/7 Support</p></div>
+<div style="padding: 10px 20px; font-size:12px; color:#7b849a; font-weight:800">WHY CHOOSE US?</div>
+<div class="trust-grid" style="padding-top:0">
+    <div class="trust-item"><i class="fas fa-shield-alt" style="color:var(--accent)"></i><p style="font-size:10px; margin-top:5px">100% SAFE</p></div>
+    <div class="trust-item"><i class="fas fa-bolt" style="color:var(--gold)"></i><p style="font-size:10px; margin-top:5px">FAST DELIVERY</p></div>
 </div>
 
-<div id="service-view">
-    <div class="view-header" onclick="closeView('service-view')"><i class="fas fa-arrow-left"></i> <span id="view-title">Back</span></div>
-    <div style="padding:15px; font-size:12px; color:var(--accent); font-weight:700;">FAST DELIVERY • NO PASSWORD REQUIRED</div>
+<div id="service-view" class="full-view">
+    <div class="view-header" onclick="closeView('service-view')"><i class="fas fa-arrow-left"></i> <span id="v-title">Services</span></div>
+    <div id="filter-container" class="filter-tabs"></div>
     <div id="service-list"></div>
 </div>
 
-<div id="form-view">
-    <div onclick="closeView('form-view')" style="font-weight:800; font-size:18px"><i class="fas fa-arrow-left"></i> BACK</div>
-    <div class="input-wrap">
-        <h1 id="f-name" style="color:var(--gold); font-size:28px">Service Name</h1>
-        <p style="color:#7b849a; margin-top:8px">Enter your username or profile link below.</p>
-        
+<div id="form-view" class="full-view">
+    <div class="view-header" onclick="closeView('form-view')"><i class="fas fa-arrow-left"></i> BACK</div>
+    <div style="padding:30px 20px">
+        <h1 id="f-srv-name" style="color:var(--gold)">Service</h1>
         <input type="text" id="user-id" class="main-input" placeholder="Paste Link / Username Here...">
-        <div class="warning-text">⚠️ ID MUST BE PUBLIC. CHECK ID CAREFULLY!</div>
-        
-        <button class="category-box" style="width:100%; margin-top:40px; background:var(--accent); color:white; justify-content:center; font-weight:900; font-size:18px; border:none;" onclick="goToPay()">CONTINUE TO PAYMENT</button>
+        <p class="warning-text">⚠️ ID MUST BE PUBLIC. CHECK ID CAREFULLY!</p>
+        <button class="pay-btn-main direct-pay" onclick="goToPay()">CONTINUE TO PAYMENT</button>
     </div>
 </div>
 
-<div id="pay-view">
-    <div onclick="closeView('pay-view')" style="text-align:left; font-weight:800;"><i class="fas fa-arrow-left"></i> BACK</div>
-    <p style="margin-top:20px; color:#7b849a; font-weight:700">PAYMENT FOR: <span id="p-srv" style="color:white"></span></p>
-    <h1 id="p-amt" style="font-size:55px; color:var(--green); margin:5px 0;">₹0</h1>
-    
-    <div class="qr-wrap"><img id="qr-img" src="" style="width:220px"></div>
-    
-    <div class="copy-btn">
-        <span style="font-weight:700; letter-spacing:1px">sbehhejebns@axl</span>
-        <button onclick="copyUPI()" style="background:var(--accent); border:none; color:white; padding:8px 15px; border-radius:8px; font-weight:800">COPY</button>
+<div id="pay-view" class="full-view">
+    <div class="view-header" onclick="closeView('pay-view')"><i class="fas fa-arrow-left"></i> BACK</div>
+    <div style="padding:20px; text-align:center">
+        <p style="color:#7b849a; font-weight:700">TOTAL AMOUNT</p>
+        <h1 id="p-amt" style="font-size:50px; color:var(--green)">₹0</h1>
+        <div style="background:white; padding:15px; border-radius:20px; display:inline-block; margin:20px 0; border:5px solid var(--accent)"><img id="qr-img" src="" style="width:200px"></div>
+        <div style="background:var(--card); padding:15px; border-radius:12px; display:flex; justify-content:space-between; margin-bottom:20px; border:1px dashed #444">
+            <span>sbehhejebns@axl</span>
+            <span onclick="copyUPI()" style="color:var(--accent); font-weight:800">COPY</span>
+        </div>
+        
+        <button class="pay-btn-main direct-pay" onclick="openUPI()">1. DIRECT PAY VIA APP</button>
+        <button class="pay-btn-main confirm-pay" onclick="startProcessing()">2. I HAVE PAID (CONFIRM)</button>
+        <p style="font-size:11px; color:#7b849a; margin-top:15px">Pay karne ke baad Confirm button dabayein.</p>
     </div>
-
-    <button class="category-box" style="width:100%; background:var(--green); color:white; justify-content:center; font-weight:900; font-size:20px; border:none;" onclick="startDeepPay()">DIRECT PAY VIA UPI APP</button>
-    <p style="font-size:11px; color:#7b849a; margin-top:20px;">After payment, return here for confirmation.</p>
 </div>
 
 <div id="proc-view">
     <div id="proc-content">
-        <div class="loader-ring"></div>
-        <h2 style="margin-top:25px; letter-spacing:1px">PROCESSING...</h2>
-        <p style="color:#7b849a; margin-top:10px; font-size:14px">Checking your payment status</p>
+        <div class="loader"></div>
+        <h2 style="margin-top:25px">VERIFYING PAYMENT...</h2>
     </div>
 </div>
 
 <div class="support-group">
     <a href="https://wa.me/9376307379" class="s-icon" style="background:#25d366"><i class="fab fa-whatsapp"></i></a>
-    <a href="https://instagram.com/ss_service_support" class="s-icon" style="background:linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888)"><i class="fab fa-instagram"></i></a>
+    <a href="https://instagram.com/ss_service_support" class="s-icon" style="background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)"><i class="fab fa-instagram"></i></a>
 </div>
-
 <div id="popup"></div>
 
 <script>
-    const UPI_ID = "sbehhejebns@axl";
-    const DEEP_LINK_BASE = "upi://pay?pa=sbehhejebns@ibl&pn=SANDEEP%20SINGH&mc=0000&mode=02&purpose=00";
-    let activeSrv = {};
+    const UPI = "sbehhejebns@axl";
+    const DEEP_LINK = "upi://pay?pa=sbehhejebns@ibl&pn=SANDEEP%20SINGH&mc=0000&mode=02&purpose=00";
+    let activeSrv = {}, currentCat = "";
 
     const db = {
         insta: {
-            title: "Instagram Services",
+            name: "Instagram",
+            tabs: ["All", "Followers", "Likes", "Views"],
             items: [
-                {n: "100 Followers (Demo)", p: 20}, {n: "5k Followers", p: 99}, {n: "10k Followers", p: 159}, {n: "20k Followers", p: 239}, {n: "50k Followers", p: 429}, {n: "100k Followers", p: 700},
-                {n: "10k Likes", p: 80}, {n: "20k Likes", p: 140}, {n: "50k Likes", p: 250}, {n: "100k Likes", p: 350},
-                {n: "10k Views", p: 40}, {n: "50k Views", p: 100}, {n: "100k Views", p: 150}, {n: "500k Views", p: 250}
+                {n: "100 Followers (Demo)", p: 20, t: "Followers"}, {n: "5k Followers", p: 99, t: "Followers"}, {n: "10k Followers", p: 159, t: "Followers"}, {n: "20k Followers", p: 239, t: "Followers"}, {n: "50k Followers", p: 429, t: "Followers"}, {n: "100k Followers", p: 700, t: "Followers"},
+                {n: "10k Likes", p: 80, t: "Likes"}, {n: "20k Likes", p: 140, t: "Likes"}, {n: "50k Likes", p: 250, t: "Likes"}, {n: "100k Likes", p: 350, t: "Likes"},
+                {n: "10k Views", p: 40, t: "Views"}, {n: "50k Views", p: 100, t: "Views"}, {n: "100k Views", p: 150, t: "Views"}, {n: "500k Views", p: 250, t: "Views"}
             ]
         },
         yt: {
-            title: "YouTube Services",
+            name: "YouTube",
+            tabs: ["All", "Subscribers", "Views", "WatchTime"],
             items: [
-                {n: "1k Subscribers", p: 100}, {n: "5k Subscribers", p: 400}, {n: "10k Subscribers", p: 700}, {n: "50k Subscribers", p: 1800},
-                {n: "5k Views", p: 100}, {n: "10k Views", p: 170}, {n: "50k Views", p: 500}, {n: "100k Views", p: 800}, {n: "1M Views", p: 2500}
+                {n: "1k Subscribers", p: 100, t: "Subscribers"}, {n: "5k Subscribers", p: 400, t: "Subscribers"}, {n: "10k Subscribers", p: 700, t: "Subscribers"}, {n: "50k Subscribers", p: 1800, t: "Subscribers"},
+                {n: "5k Views", p: 100, t: "Views"}, {n: "10k Views", p: 170, t: "Views"}, {n: "50k Views", p: 500, t: "Views"}, {n: "100k Views", p: 800, t: "Views"}, {n: "1M Views", p: 2500, t: "Views"},
+                {n: "4k WatchTime", p: 199, t: "WatchTime"}
             ]
         },
         special: {
-            title: "Special Services",
+            name: "Special",
+            tabs: ["All"],
             items: [
-                {n: "Blue Tick Lifetime", p: 399}, {n: "10k Active Followers", p: 250}, {n: "50k Active Followers", p: 500}, {n: "1k Subs + 4k WatchHour", p: 199}
+                {n: "Blue Tick Lifetime", p: 399, t: "All"}, {n: "10k Active Followers", p: 250, t: "All"}, {n: "50k Active Followers", p: 500, t: "All"}
             ]
         }
     };
 
-    function openSection(k) {
+    function openSection(cat) {
+        currentCat = cat;
         const v = document.getElementById('service-view');
-        const l = document.getElementById('service-list');
-        document.getElementById('view-title').innerText = db[k].title;
-        l.innerHTML = db[k].items.map(i => `
+        const tContainer = document.getElementById('filter-container');
+        document.getElementById('v-title').innerText = db[cat].name + " Services";
+        
+        tContainer.innerHTML = db[cat].tabs.map(t => `<div class="tab-btn ${t==='All'?'active':''}" onclick="filterSrv('${t}', this)">${t}</div>`).join('');
+        filterSrv('All');
+        v.style.display = 'block';
+    }
+
+    function filterSrv(tab, btn) {
+        if(btn) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+        const list = document.getElementById('service-list');
+        const filtered = tab === 'All' ? db[currentCat].items : db[currentCat].items.filter(i => i.t === tab);
+        
+        list.innerHTML = filtered.map(i => `
             <div class="service-card" onclick="openForm('${i.n}', ${i.p})">
-                <div><h4>${i.n}</h4><p>Premium Quality • Instant</p></div>
+                <div><h4>${i.n}</h4><p>High Quality • Instant</p></div>
                 <div class="price-tag">₹${i.p}</div>
             </div>
         `).join('');
-        v.style.display = 'block';
     }
 
     function openForm(n, p) {
         activeSrv = {n, p};
-        document.getElementById('f-name').innerText = n;
+        document.getElementById('f-srv-name').innerText = n;
         document.getElementById('form-view').style.display = 'block';
     }
 
     function goToPay() {
-        if(!document.getElementById('user-id').value) return alert("Please enter ID first!");
-        document.getElementById('p-srv').innerText = activeSrv.n;
+        if(!document.getElementById('user-id').value) return alert("Please enter ID!");
         document.getElementById('p-amt').innerText = "₹" + activeSrv.p;
-        document.getElementById('qr-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=upi://pay?pa=${UPI_ID}&pn=FASTXERA&am=${activeSrv.p}&cu=INR`;
+        document.getElementById('qr-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa=${UPI}&am=${activeSrv.p}`;
         document.getElementById('pay-view').style.display = 'block';
     }
 
-    function startDeepPay() {
-        window.location.href = `${DEEP_LINK_BASE}&am=${activeSrv.p}`;
-        setTimeout(() => {
-            document.getElementById('proc-view').style.display = 'flex';
-            setTimeout(showFinalMsg, 6000);
-        }, 2000);
-    }
+    function openUPI() { window.location.href = `${DEEP_LINK}&am=${activeSrv.p}`; }
 
-    function showFinalMsg() {
-        const content = document.getElementById('proc-content');
-        content.innerHTML = `
-            <i class="fas fa-check-circle" style="font-size:70px; color:var(--green)"></i>
-            <h2 style="margin-top:25px;">ORDER RECEIVED!</h2>
-            <p style="padding:0 20px; color:#7b849a; font-size:14px; line-height:1.6">Your order will be processed after we check the payment manually. Completion time: <b>30-60 mins</b>.</p>
-            <div style="background:rgba(255,159,67,0.1); border:1px solid var(--gold); margin:20px; padding:15px; border-radius:10px; font-size:13px">Issues? Contact WhatsApp Support</div>
-            <button class="category-box" onclick="location.reload()" style="background:var(--accent); color:white; border:none; width:80%; font-weight:800">DONE</button>
-        `;
+    function startProcessing() {
+        document.getElementById('proc-view').style.display = 'flex';
+        setTimeout(() => {
+            const content = document.getElementById('proc-content');
+            content.innerHTML = `
+                <i class="fas fa-check-circle" style="font-size:60px; color:var(--green)"></i>
+                <h2 style="margin-top:20px;">PAYMENT RECEIVED!</h2>
+                <p style="color:#7b849a; padding:20px">We will check your payment after proceed your order. Please wait <b>30 minutes</b>.</p>
+                <a href="https://instagram.com/ss_service_support" class="pay-btn-main direct-pay" style="text-decoration:none; display:block">CONTACT INSTA SUPPORT</a>
+                <button onclick="location.reload()" style="background:none; border:none; color:var(--accent); margin-top:20px; font-weight:800">BACK TO HOME</button>
+            `;
+        }, 5000);
     }
 
     function closeView(id) { document.getElementById(id).style.display = 'none'; }
-    function copyUPI() { navigator.clipboard.writeText(UPI_ID); alert("UPI ID Copied!"); }
+    function copyUPI() { navigator.clipboard.writeText(UPI); alert("UPI Copied!"); }
 
-    const names = ["Arjun", "Rahul", "Priya", "Ankit", "Vikram", "Sonia", "Deepak", "Rohan", "Sneha", "Karan"];
-    const items = ["10k Followers", "5k Likes", "1k Subs", "Views Pack", "Blue Tick Service"];
+    const names = ["Rahul", "Arjun", "Priya", "Ankit", "Vikram", "Sonia", "Deepak"];
     setInterval(() => {
         const p = document.getElementById('popup');
-        p.innerText = `🔥 ${names[Math.floor(Math.random()*names.length)]} just bought ${items[Math.floor(Math.random()*items.length)]}!`;
+        p.innerText = `🔥 ${names[Math.floor(Math.random()*names.length)]} just bought a service!`;
         p.style.display = 'block';
-        setTimeout(() => p.style.display = 'none', 4500);
+        setTimeout(() => p.style.display = 'none', 4000);
     }, 12000);
 </script>
 </body>
-                                                                                      </html>
+    </html>
     
