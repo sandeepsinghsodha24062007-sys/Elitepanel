@@ -1,48 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>FASTXERA | ELITE PANEL</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root { --bg: #05070a; --card: #12161f; --accent: #00d2ff; --gold: #ff9f43; --green: #2ecc71; --glass: rgba(255, 255, 255, 0.03); }
+        :root { --bg: #05070a; --card: #12161f; --accent: #00d2ff; --gold: #ff9f43; --green: #2ecc71; --red: #ff4757; --glass: rgba(255, 255, 255, 0.03); }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background: var(--bg); color: white; overflow-x: hidden; }
 
-        @keyframes slideIn { from { transform: translateX(20px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        /* Notification Styling */
+        #notification-toast { position: fixed; bottom: 100px; left: 20px; right: 20px; background: var(--card); border-left: 4px solid var(--accent); padding: 12px; border-radius: 8px; display: none; align-items: center; gap: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 9999; animation: slideUp 0.5s ease; }
+        @keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         
         .top-bar { background: #004d00; color: #00ff00; font-size: 11px; font-weight: 800; text-align: center; padding: 7px; border-bottom: 1px solid #00ff0033; }
-        
         header { padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; background: var(--card); border-bottom: 1px solid #232a35; }
-        .logo-img { height: 50px; width: auto; object-fit: contain; }
+        
+        /* Logo Styling */
+        .logo-box { display: flex; align-items: center; gap: 10px; }
+        .logo-box i { font-size: 30px; color: var(--gold); }
+        .logo-text { font-size: 22px; font-weight: 900; letter-spacing: 1px; background: linear-gradient(to right, #fff, var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         .trust-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
         .trust-item { background: var(--glass); border: 1px solid #232a35; padding: 15px; border-radius: 15px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 90px; }
         .trust-item i { font-size: 22px; margin-bottom: 8px; }
         .trust-item p { font-size: 10px; font-weight: 700; color: #7b849a; text-transform: uppercase; }
 
-        .category-box { background: linear-gradient(145deg, #1a202c, #12161f); margin: 0 15px 12px; padding: 20px; border-radius: 18px; display: flex; align-items: center; justify-content: space-between; border: 1px solid #2d3748; cursor: pointer; }
-        
+        .category-box { background: linear-gradient(145deg, #1a202c, #12161f); margin: 0 15px 12px; padding: 20px; border-radius: 18px; display: flex; align-items: center; justify-content: space-between; border: 1px solid #2d3748; }
         .filter-tabs { display: flex; gap: 10px; overflow-x: auto; padding: 10px 15px; scrollbar-width: none; }
         .tab-btn { padding: 10px 22px; background: var(--card); border: 1px solid #232a35; border-radius: 50px; font-size: 12px; font-weight: 700; color: #7b849a; white-space: nowrap; }
         .tab-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
 
-        .full-view { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 2000; overflow-y: auto; padding-bottom: 100px; animation: slideIn 0.3s ease; }
+        .full-view { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 2000; overflow-y: auto; padding-bottom: 100px; }
         .view-header { padding: 20px; background: var(--card); display: flex; align-items: center; gap: 15px; font-weight: 800; border-bottom: 1px solid #232a35; }
 
+        /* Service Design */
         .service-card { background: rgba(255,255,255,0.02); margin: 10px 15px; padding: 18px; border-radius: 15px; border: 1px solid #232a35; display: flex; justify-content: space-between; align-items: center; }
         .price-badge { background: rgba(46, 204, 113, 0.15); border: 1px solid var(--green); padding: 8px 15px; border-radius: 12px; min-width: 85px; text-align: center; }
         .price-tag { font-size: 18px; font-weight: 900; color: var(--green); }
 
+        /* Input Look */
+        .input-container { padding: 25px 20px; text-align: center; }
+        .buying-tag { display: inline-block; padding: 8px 15px; background: rgba(255,159,67,0.1); color: var(--gold); border-radius: 8px; font-size: 12px; font-weight: 800; margin-bottom: 15px; border: 1px solid var(--gold); }
+        .main-input { width: 100%; background: var(--card); border: 2px solid #2d3748; padding: 20px; border-radius: 15px; color: white; font-size: 16px; outline: none; transition: 0.3s; }
+        .main-input:focus { border-color: var(--accent); box-shadow: 0 0 15px rgba(0,210,255,0.2); }
+        .public-warning { color: var(--red); font-size: 11px; font-weight: 800; margin-top: 15px; animation: blink 1s infinite; display: block; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
         .btn-action { width: 100%; height: 60px; border-radius: 15px; border: none; font-weight: 900; font-size: 16px; cursor: pointer; text-transform: uppercase; }
-        .btn-blue { background: var(--accent); color: white; margin-top: 20px; }
+        .btn-blue { background: var(--accent); color: white; margin-top: 25px; }
         .btn-green { background: var(--green); color: white; margin-top: 15px; }
 
-        .main-input { width: 100%; background: var(--card); border: 2px solid #2d3748; padding: 20px; border-radius: 15px; color: white; font-size: 16px; margin-top: 15px; outline: none; }
-
         .support-group { position: fixed; bottom: 30px; right: 20px; display: flex; flex-direction: column; gap: 12px; z-index: 1500; }
-        .s-icon { width: 55px; height: 55px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 25px; color: white; }
+        .s-icon { width: 55px; height: 55px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 25px; color: white; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
         
         #proc-view { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 5000; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
         .loader { width: 60px; height: 60px; border: 6px solid var(--glass); border-top: 6px solid var(--accent); border-radius: 50%; animation: spin 1s linear infinite; }
@@ -51,19 +62,25 @@
 </head>
 <body>
 
-<div class="top-bar">✅ 24/7 LIVE SUPPORT • FASTEST DELIVERY</div>
+<div id="notification-toast">
+    <div style="background:var(--accent); width:40px; height:40px; border-radius:50%; display:flex; justify-content:center; align-items:center;"><i class="fas fa-shopping-cart" style="font-size:16px;"></i></div>
+    <div><p id="notif-text" style="font-size:12px; font-weight:700; color:white;"></p><p style="font-size:10px; color:#7b849a;">Just now</p></div>
+</div>
+
+<div class="top-bar">✅ 24/7 LIVE SUPPORT • DELIVERY FAST</div>
 
 <header>
-    <img src="https://i.ibb.co/67vW0N3r/1000052893-removebg-preview.png" alt="FASTXERA" class="logo-img">
-    <div style="font-size: 10px; color: var(--green); font-weight: 800;"><i class="fas fa-check-circle"></i> ELITE</div>
+    <div class="logo-box">
+        <i class="fas fa-rocket"></i>
+        <span class="logo-text">FASTXERA</span>
+    </div>
+    <div style="font-size: 10px; color: var(--green); font-weight: 800;"><i class="fas fa-check-circle"></i> VERIFIED</div>
 </header>
 
 <div class="trust-grid">
     <div class="trust-item"><b>2500+</b><p>Orders Done</p></div>
     <div class="trust-item"><b>100%</b><p>Safe Panel</p></div>
 </div>
-
-<div style="padding: 0 20px 10px; font-size:11px; color:#7b849a; font-weight:800; text-transform:uppercase">Main Services</div>
 
 <div class="category-box" onclick="openSection('insta')">
     <div style="display:flex; align-items:center; gap:15px"><i class="fab fa-instagram" style="font-size:30px; color:#e1306c"></i> <div><h3>Instagram</h3><p style="font-size:11px; color:#7b849a">Followers, Likes, Views</p></div></div>
@@ -76,7 +93,7 @@
 </div>
 
 <div class="category-box" onclick="openSection('special')">
-    <div style="display:flex; align-items:center; gap:15px"><i class="fas fa-star" style="font-size:28px; color:var(--gold)"></i> <div><h3>Special Plans</h3><p style="font-size:11px; color:#7b849a">Blue Tick, Active Users</p></div></div>
+    <div style="display:flex; align-items:center; gap:15px"><i class="fas fa-bolt" style="font-size:28px; color:var(--gold)"></i> <div><h3>Special Plans</h3><p style="font-size:11px; color:#7b849a">Blue Tick, Active Users</p></div></div>
     <i class="fas fa-arrow-right" style="opacity:0.3"></i>
 </div>
 
@@ -89,17 +106,18 @@
 </div>
 
 <div id="service-view" class="full-view">
-    <div class="view-header" onclick="closeView('service-view')"><i class="fas fa-arrow-left"></i> <span id="v-title">Services</span></div>
+    <div class="view-header" onclick="closeView('service-view')"><i class="fas fa-arrow-left"></i> <span id="v-title">Select Service</span></div>
     <div id="filter-container" class="filter-tabs"></div>
     <div id="service-list"></div>
 </div>
 
 <div id="form-view" class="full-view">
     <div class="view-header" onclick="closeView('form-view')"><i class="fas fa-arrow-left"></i> BACK</div>
-    <div style="padding:30px 20px">
-        <h2 id="f-srv-name" style="color:var(--gold); margin-bottom:10px">Service Name</h2>
-        <input type="text" id="user-id" class="main-input" placeholder="Enter Username / Link">
-        <button class="btn-action btn-blue" onclick="goToPay()">Continue</button>
+    <div class="input-container">
+        <div id="buying-info" class="buying-tag"></div>
+        <input type="text" id="user-id" class="main-input" placeholder="Username / Profile Link">
+        <span class="public-warning">⚠️ ACCOUNT MUST BE PUBLIC!</span>
+        <button class="btn-action btn-blue" onclick="goToPay()">Continue to Payment</button>
     </div>
 </div>
 
@@ -120,7 +138,7 @@
 <div id="proc-view">
     <div id="proc-content">
         <div class="loader"></div>
-        <h2 style="margin-top:25px">VERIFYING...</h2>
+        <h2 style="margin-top:25px">VERIFYING PAYMENT...</h2>
     </div>
 </div>
 
@@ -145,10 +163,10 @@
                 {n: "20k Followers", p: 239, t: "Followers", sub: "Premium Quality"},
                 {n: "50k Followers", p: 429, t: "Followers", sub: "Premium Quality"},
                 {n: "100k Followers", p: 700, t: "Followers", sub: "Premium Quality"},
-                {n: "10k Likes", p: 80, t: "Likes", sub: "Instant Start"},
-                {n: "20k Likes", p: 140, t: "Likes", sub: "Instant Start"},
-                {n: "50k Likes", p: 250, t: "Likes", sub: "Instant Start"},
-                {n: "100k Likes", p: 350, t: "Likes", sub: "Instant Start"},
+                {n: "10k Likes", p: 80, t: "Likes", sub: "Instant Delivery"},
+                {n: "20k Likes", p: 140, t: "Likes", sub: "Instant Delivery"},
+                {n: "50k Likes", p: 250, t: "Likes", sub: "Instant Delivery"},
+                {n: "100k Likes", p: 350, t: "Likes", sub: "Instant Delivery"},
                 {n: "10k Views", p: 40, t: "Views", sub: "Super Fast"},
                 {n: "20k Views", p: 60, t: "Views", sub: "Super Fast"},
                 {n: "50k Views", p: 100, t: "Views", sub: "Super Fast"},
@@ -160,10 +178,10 @@
             name: "YouTube",
             tabs: ["All", "Subscribers", "Views"],
             items: [
-                {n: "1k Subscribers", p: 100, t: "Subscribers", sub: "Real Users"},
-                {n: "5k Subscribers", p: 400, t: "Subscribers", sub: "Real Users"},
-                {n: "10k Subscribers", p: 700, t: "Subscribers", sub: "Real Users"},
-                {n: "50k Subscribers", p: 1800, t: "Subscribers", sub: "Real Users"},
+                {n: "1k Subscribers", p: 100, t: "Subscribers", sub: "Lifetime Gtd"},
+                {n: "5k Subscribers", p: 400, t: "Subscribers", sub: "Lifetime Gtd"},
+                {n: "10k Subscribers", p: 700, t: "Subscribers", sub: "Lifetime Gtd"},
+                {n: "50k Subscribers", p: 1800, t: "Subscribers", sub: "Lifetime Gtd"},
                 {n: "5k Views", p: 100, t: "Views", sub: "High Retention"},
                 {n: "10k Views", p: 170, t: "Views", sub: "High Retention"},
                 {n: "50k Views", p: 500, t: "Views", sub: "High Retention"},
@@ -175,22 +193,38 @@
             name: "Special Plans",
             tabs: ["All"],
             items: [
-                {n: "Insta Blue Tick", p: 399, t: "All", sub: "Life time warranty"},
+                {n: "Insta Blue Tick", p: 399, t: "All", sub: "Lifetime Warranty"},
                 {n: "10k Active Followers", p: 250, t: "All", sub: "Real Engagement"},
                 {n: "50k Active Followers", p: 500, t: "All", sub: "Real Engagement"},
-                {n: "1k Subs + 4k Watch Time", p: 199, t: "All", sub: "YouTube Combo Offer"}
+                {n: "1k Subs + 4k WatchTime", p: 199, t: "All", sub: "Combo Offer"}
             ]
         }
     };
 
+    const notifs = [
+        "Aman from Delhi bought 10k Followers", "Rahul from Mumbai bought 5k Likes", 
+        "Someone just ordered Blue Tick Plan", "New order: 100k YT Views",
+        "Priya from Jaipur bought 20k Followers", "Sandeep from Jodhpur bought 50k Views",
+        "New Order: 1k Subs + 4k WatchTime", "Someone bought 50k Instagram Followers",
+        "Vikas just bought 1M YouTube Views", "User ordered 10k Active Followers"
+    ];
+
+    function showNotif() {
+        const toast = document.getElementById('notification-toast');
+        const text = document.getElementById('notif-text');
+        text.innerText = notifs[Math.floor(Math.random() * notifs.length)];
+        toast.style.display = 'flex';
+        setTimeout(() => toast.style.display = 'none', 3000);
+    }
+    setInterval(showNotif, 8000);
+
     function openSection(cat) {
         currentCat = cat;
-        const v = document.getElementById('service-view');
-        const tContainer = document.getElementById('filter-container');
         document.getElementById('v-title').innerText = db[cat].name;
+        const tContainer = document.getElementById('filter-container');
         tContainer.innerHTML = db[cat].tabs.map(t => `<div class="tab-btn ${t==='All'?'active':''}" onclick="filterSrv('${t}', this)">${t}</div>`).join('');
         filterSrv('All');
-        v.style.display = 'block';
+        document.getElementById('service-view').style.display = 'block';
     }
 
     function filterSrv(tab, btn) {
@@ -202,7 +236,7 @@
         const filtered = tab === 'All' ? db[currentCat].items : db[currentCat].items.filter(i => i.t === tab);
         list.innerHTML = filtered.map(i => `
             <div class="service-card" onclick="openForm('${i.n}', ${i.p})">
-                <div><h4 style="font-size:15px">${i.n}</h4><p style="font-size:11px; color:#7b849a">${i.sub}</p></div>
+                <div><h4>${i.n}</h4><p style="font-size:11px; color:#7b849a">${i.sub}</p></div>
                 <div class="price-badge"><span class="price-tag">₹${i.p}</span></div>
             </div>
         `).join('');
@@ -210,12 +244,12 @@
 
     function openForm(n, p) {
         activeSrv = {n, p};
-        document.getElementById('f-srv-name').innerText = n;
+        document.getElementById('buying-info').innerText = "Buying: " + n;
         document.getElementById('form-view').style.display = 'block';
     }
 
     function goToPay() {
-        if(!document.getElementById('user-id').value) return alert("Please enter Link/Username!");
+        if(!document.getElementById('user-id').value) return alert("Please enter Username/Link!");
         document.getElementById('p-amt').innerText = "₹" + activeSrv.p;
         document.getElementById('qr-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=${UPI_ID}&am=${activeSrv.p}`;
         document.getElementById('pay-view').style.display = 'block';
@@ -240,5 +274,5 @@
     function copyUPI() { navigator.clipboard.writeText(UPI_ID); alert("UPI ID Copied!"); }
 </script>
 </body>
-                                                                                                                                                                                                                                           </html>
-            
+            </html>
+                                                                                                     
